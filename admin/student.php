@@ -55,7 +55,7 @@ if (isset($_SESSION['user_id'])) {
                 <th>Last Name</th>
                 <th>Course</th>
                 <th>Year Level</th>
-                <th>Semester</th>
+                <th>Trimester</th>
                 <th>School Year</th>
                 <th>Actions</th>
             </tr>
@@ -422,7 +422,7 @@ if (isset($_SESSION['user_id'])) {
               </select>
             </div>
             <div class="form-group col-md-6">
-              <label for="semester">Semester</label>
+              <label for="semester">Trimester</label>
               <select id="semester" class="form-control">
                 <?php
                 $semesters = ['1st', '2nd', '3rd'];

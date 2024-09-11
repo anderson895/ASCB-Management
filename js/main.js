@@ -37,7 +37,7 @@ $('#frmDepartmentData').on('submit', function(e) {
   var form = $('<form>', {
     method: 'POST',
     action: 'function/export_department.php',
-    target: '_self'
+    target: '_blank'
   });
   $.each($(this).serializeArray(), function(index, field) {
     $('<input>', {

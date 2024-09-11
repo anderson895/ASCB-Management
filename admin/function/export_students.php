@@ -41,7 +41,7 @@ $headers = [
     'D2' => 'Last Name', 
     'E2' => 'Course', 
     'F2' => 'Year Level', 
-    'G2' => 'Semester',
+    'G2' => 'Trimester',
     'H2' => 'School Year', 
     'I2' => 'Academic Status'
 ];

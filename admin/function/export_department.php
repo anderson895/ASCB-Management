@@ -24,12 +24,13 @@ if (!$get_All_filtered_student || !is_array($get_All_filtered_student)) {
     // Return a clear error message if the query failed or no data found
     // die("No students found or data retrieval failed.");
 
-    echo "
-    <script>
-        alert('NO STUDENT FOUND');
-        window.location.href = '../department.php';
-    </script>
-    ";
+    echo "NO STUDENT RECORD FOUND";
+    // echo "
+    // <script>
+    //     alert('NO STUDENT FOUND');
+    //     window.location.href = '../department.php';
+    // </script>
+    // ";
 
 
 }else{
