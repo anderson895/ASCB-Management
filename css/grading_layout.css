@@ -1,0 +1,14 @@
+.grading-system-title {
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+.grading-list {
+    list-style: none;
+    padding-left: 0;
+}
+.grading-list li {
+    font-size: 1.2rem;
+}
+.grading-section {
+    margin: 0 auto;
+}

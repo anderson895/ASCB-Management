@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "alertifyjs": "^1.13.1",
+    "apexcharts": "^3.53.0",
+    "bootstrap": "^5.3.3",
+    "datatables.net": "^2.1.5",
+    "datatables.net-dt": "^2.1.5",
+    "font-awesome": "^4.7.0",
+    "select2": "^4.1.0-rc.0"
+  }
+}
