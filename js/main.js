@@ -2,9 +2,7 @@
 $(document).ready(function() {
 
 
-  
-
-  $('.TogglerViewSubject').click(function() {
+$(document).on('click', '.TogglerViewSubject', function() {
     var subId = $(this).data('subject_id');
     var code = $(this).data('code');
 
@@ -14,14 +12,14 @@ $(document).ready(function() {
 });
 
 
-$('.TogglerViewDepartment').click(function() {
+$(document).on('click', '.TogglerViewDepartment', function() {
     var deptId = $(this).data('dept_id');
     var url = 'view_department.php?dept_id=' + deptId;
     window.location.href = url;
 });
 
 
-$('.togglerAddSubjectForStudent').click(function (e) { 
+$(document).on('click', '.togglerAddSubjectForStudent', function (e) {
   e.preventDefault();
   
   var stud_id=$(this).attr('data-stud_id');
@@ -180,7 +178,7 @@ $('#frmDepartmentData').on('submit', function(e) {
 
 
 // Toggler for update admin
-  $('.TogglerUpdateUser').on('click', function(e) {
+$(document).on('click', '.TogglerUpdateUser', function(e) {
     e.preventDefault();
     var admin_id = $(this).attr('data-admin_id');
     
@@ -204,7 +202,7 @@ $('#frmDepartmentData').on('submit', function(e) {
 
 
 // Toggler for update admin
-$('.TogglerSubgrade').on('click', function(e) {
+$(document).on('click', '.TogglerSubgrade', function(e) {
   e.preventDefault();
 
   var stud_id = $(this).attr('data-stud_id');
@@ -221,7 +219,7 @@ $('.TogglerSubgrade').on('click', function(e) {
 
 
 // Toggler for update Department
-$('.TogglerUpdateDepartment').on('click', function(e) {
+$(document).on('click', '.TogglerUpdateDepartment', function(e) {
   e.preventDefault();
   var dept_id = $(this).attr('data-dept_id');
   
@@ -241,22 +239,16 @@ $('.TogglerUpdateDepartment').on('click', function(e) {
 
 
 // Toggler for update subject
-  $('.TogglerUpdateSubject').on('click', function(e) {
+$(document).on('click', '.TogglerUpdateSubject', function(e) {
     e.preventDefault();
 
 
     var for_year_level = $(this).attr('data-for_year_level');
-
     var course_code = $(this).attr('data-code');
-
-    
     var title = $(this).attr('data-title');
-
-    
     var units = $(this).attr('data-units');
     var pre = $(this).attr('data-pre');
     var subject_id = $(this).attr('data-subject_id');
-
     var stud_department = $(this).attr('data-dept_id');
 
 
@@ -280,7 +272,7 @@ $('.TogglerUpdateDepartment').on('click', function(e) {
 
 
 // Toggler for update student
-$('.TogglerUpdateStudent').on('click', function(e) {
+$(document).on('click', '.TogglerUpdateStudent', function(e) {
   e.preventDefault();
 
 
@@ -817,7 +809,7 @@ $('#frmEditAdmin').on('submit', function(e) {
 
 
   //FOR START Delete Confirmation
-  $('.TogglerDeleteSubject').on('click', function(e) {
+  $(document).on('click', '.TogglerDeleteSubject', function(e) {
     e.preventDefault();
     var course_code = $(this).attr('data-code');
     var subject_id = $(this).attr('data-subject_id');
@@ -907,7 +899,7 @@ $('.TogglerDeleteStudentSubject').on('click', function(e) {
 
 
 //FOR START Delete Confirmation for student
-$('.TogglerDeleteStudent').on('click', function(e) {
+$(document).on('click', '.TogglerDeleteStudent', function(e) {
   e.preventDefault();
   var stud_id = $(this).attr('data-stud_id');
 
@@ -948,7 +940,7 @@ $('.TogglerDeleteStudent').on('click', function(e) {
 
   
 //FOR START Delete Confirmation for student
-$('.TogglerDeleteDepartment').on('click', function(e) {
+$(document).on('click', '.TogglerDeleteDepartment', function(e) {
   e.preventDefault();
   var dept_id = $(this).attr('data-dept_id');
 
@@ -994,7 +986,7 @@ $('.TogglerDeleteDepartment').on('click', function(e) {
 
 
 //FOR START Delete Confirmation for user
-$('.TogglerDeleteUser').on('click', function(e) {
+$(document).on('click', '.TogglerDeleteUser', function(e) {
   e.preventDefault();
   var admin_id = $(this).attr('data-admin_id');
 
@@ -1051,7 +1043,7 @@ $('.TogglerDeleteUser').on('click', function(e) {
 
 
 
-$('.view_student').on('click', function(){
+$(document).on('click', '.view_student', function() {
   var stud_id = $(this).data('stud_id');
   window.location.href = 'view_student_info.php?stud_id=' + stud_id;
 });
