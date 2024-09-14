@@ -10,6 +10,10 @@ if (isset($_SESSION['user_id'])) {
     $isLogin = true;
 }?>
 
+
+<!-- Include Select2 CSS -->
+<link href="../node_modules/select2/dist/css/select2.min.css" rel="stylesheet" />
+
 <div id="content" class="p-4 p-md-5">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
@@ -148,7 +152,7 @@ if (isset($_SESSION['user_id'])) {
             </div>
 
             <div class="col-12 mb-3">
-              <div class="form-floating">
+              <!-- <div class="form-floating">
                 <select class="form-select" name="export_dept_subject" id="export_dept_subject" required>
                   <option selected disabled value="">Select Subject Code</option>
                   <?php 
@@ -158,8 +162,26 @@ if (isset($_SESSION['user_id'])) {
                   <?php endwhile; ?>
                 </select>
                 <label for="export_dept_subject">Subject Code</label>
-              </div>
-            </div>
+              </div> -->
+
+              <div class="form-group mb-3">
+                            <label for="add_stud_subject">All available subject </label>
+                            <select class="form-control custom-select-width" name="add_stud_subject" id="add_stud_subject" required style="width:100%;">
+                                <?php 
+                                $get_All_subject = $admin_db->get_All_subject();
+                                $subjects_found = false;
+
+                                while ($subject = $get_All_subject->fetch_array()) {
+                                    $subjects_found = true;
+                                    echo '<option value="' . $subject['subject_id'] . '">' . $subject['course_code'] . '</option>';
+                                }
+
+                                if (!$subjects_found) {
+                                    echo '<option disabled>No Available Subject</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>            </div>
           </div>
           <div class="d-grid">
             <button type="submit" id="BtnExportDeptData" class="btn btn-primary">Export</button>
@@ -175,3 +197,14 @@ if (isset($_SESSION['user_id'])) {
 include('../components/admin-footer.php');
 ?>
 
+<script src="../node_modules/select2//dist/js/select2.min.js"></script>
+<!-- Update student Modal -->
+ 
+<script>
+    $(document).ready(function() {
+        $('#add_stud_subject').select2({
+            placeholder: 'Select a subject',
+            allowClear: true
+        });
+    });
+</script>

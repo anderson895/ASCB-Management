@@ -374,10 +374,16 @@ include('../components/admin-footer.php');
                         <input type="hidden" id="add_stud_id" name="add_stud_id" required>
 
                         <div class="form-group mb-3">
-                            <label for="add_stud_subject">Available Subject for <b class="text-primary"><?= htmlspecialchars($stud_year_level) ?></b></label>
+                            <label for="add_stud_subject">Available Subject for <?php if($stud_academic_status=="Irregular"){ echo "<b class='text-primary'>Irregular</b>"; }else{ ?><b class="text-success"><?= htmlspecialchars($stud_year_level) ?></b><?php } ?></label>
                             <select class="form-control custom-select-width" name="add_stud_subject" id="add_stud_subject" required style="width:100%;">
                                 <?php 
-                                $get_All_subject = $admin_db->get_StudentSubject($stud_id, $stud_year_level);
+
+                                if($stud_academic_status=="Irregular"){
+                                    $get_All_subject = $admin_db->get_All_subject();
+                                }else{
+                                    $get_All_subject = $admin_db->get_StudentSubject($stud_id, $stud_year_level);
+                                }
+                              
                                 $subjects_found = false;
 
                                 while ($subject = $get_All_subject->fetch_array()) {
