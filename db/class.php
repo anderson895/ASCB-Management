@@ -263,6 +263,18 @@ class global_class extends db_connect
     }
 
 
+    public function get_All_subject_Irregular($stud_id)
+    {
+        $query = $this->conn->prepare("
+            SELECT * FROM `subject`
+            WHERE `subject_id` NOT IN (SELECT `ss_subject_id` FROM `student_subject` WHERE `ss_stud_id` = ?)");
+        $query->bind_param('i',$stud_id);
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
     
     public function get_StudentSubject($stud_year_level,$stud_id)
     {

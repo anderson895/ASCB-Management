@@ -379,7 +379,7 @@ include('../components/admin-footer.php');
                                 <?php 
 
                                 if($stud_academic_status=="Irregular"){
-                                    $get_All_subject = $admin_db->get_All_subject();
+                                    $get_All_subject = $admin_db->get_All_subject_Irregular($stud_id);
                                 }else{
                                     $get_All_subject = $admin_db->get_StudentSubject($stud_id, $stud_year_level);
                                 }
