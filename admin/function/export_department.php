@@ -12,11 +12,16 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 include('../../db/class.php');
 $admin_db = new global_class();
 
+
+// echo "<pre>";
+// print_r($_POST);
+// echo "</pre>";
+
 // Fetch student data
 $dept_course = $_POST['export_dept_course'];
 $department_id = $_POST['export_dept_stud_department'];
 $yr_lvl = $_POST['export_dept_yr_lvl'];
-$subject_id = $_POST['export_dept_subject'];
+$subject_id = $_POST['add_stud_subject'];
 
 $get_All_filtered_student = $admin_db->get_All_filtered_student($dept_course, $department_id, $yr_lvl, $subject_id);
 
