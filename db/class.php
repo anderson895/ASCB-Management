@@ -1,19 +1,5 @@
 <?php
 include('db.php');
-date_default_timezone_set('Asia/Manila');
-
-
-$today = new DateTime();
-
-$specificDate = new DateTime('2024-09-15');
-if ($today->format('Y-m-d') === $specificDate->format('Y-m-d')) {
-	header('location: ../');
-    //wadwa
-} else {
-    
-}
-
-
 
 class global_class extends db_connect
 {
@@ -21,6 +7,71 @@ class global_class extends db_connect
     {
         $this->connect();
     }
+
+
+
+     // Function to check if a stud_id exists in the database
+     public function checkStudIDExists($stud_id) {
+        $sql = "SELECT COUNT(*) FROM `student` WHERE `stud_id` = ?";
+        $stmt = $this->conn->prepare($sql); // Use $this->conn instead of $this->db
+
+        if (!$stmt) {
+            // Handle statement preparation failure
+            error_log("Statement preparation failed: " . $this->conn->error);
+            return false; 
+        }
+        
+        $stmt->bind_param('s', $stud_id);
+        $stmt->execute();
+        $stmt->bind_result($count);
+        $stmt->fetch();
+        $stmt->close();
+
+        return $count > 0; // Return true if count is greater than 0
+    }
+
+   // Function to generate a unique stud_id
+public function generateUniqueStudID() {
+    $prefix = '2024'; // Prefix for the student ID
+    $stud_id = '';
+    
+    // Retrieve the highest existing ID with the specified prefix
+    $sql = "SELECT MAX(stud_id) FROM `student` WHERE stud_id LIKE ?";
+    $stmt = $this->conn->prepare($sql);
+    
+    if (!$stmt) {
+        error_log("Statement preparation failed: " . $this->conn->error);
+        return false; 
+    }
+    
+    // Prepare the like clause for searching
+    $likePrefix = $prefix . '%';
+    $stmt->bind_param('s', $likePrefix);
+    $stmt->execute();
+    $stmt->bind_result($maxStudID);
+    $stmt->fetch();
+    $stmt->close();
+    
+    // Determine the next ID
+    if ($maxStudID) {
+        // Extract the numeric part and increment it
+        $numericPart = intval(substr($maxStudID, strlen($prefix))) + 1;
+    } else {
+        // If no IDs exist, start with 1 (the first incremented ID after the prefix)
+        $numericPart = 1;
+    }
+    
+    // Generate the new student ID with a maximum of 6 digits
+    $newStudID = $prefix . str_pad($numericPart, 3, '0', STR_PAD_LEFT); // This ensures a 3-digit numeric part (total 6 digits)
+
+    // Ensure the new ID is unique
+    while ($this->checkStudIDExists($newStudID)) {
+        $numericPart++;
+        $newStudID = $prefix . str_pad($numericPart, 3, '0', STR_PAD_LEFT);
+    }
+
+    return $newStudID; // Return the unique stud_id
+}
 
 
 
@@ -161,7 +212,7 @@ class global_class extends db_connect
 
     public function login($username)
     {
-        $query = $this->conn->prepare("SELECT * FROM user WHERE `username` = '$username'");
+        $query = $this->conn->prepare("SELECT * FROM user WHERE `username` = '$username' AND user.status ='1'");
         if ($query->execute()) {
             $result = $query->get_result();
             return $result;
@@ -381,11 +432,11 @@ class global_class extends db_connect
 
     
 
-    public function addStudent($stud_course, $fname, $mname, $lname, $stud_phone, $stud_email, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy, $add_sem, $add_acadStatus)
+    public function addStudent($stud_id,$stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy, $add_sem, $add_acadStatus)
     {
         // Prepare the SQL statement
-        $query = "INSERT INTO `student` (`stud_course`, `stud_fname`, `stud_mname`, `stud_lname`, `stud_phone`, `stud_email`, `stud_address`, `stud_gender`, `stud_year_level`, `stud_school_year`, `stud_sem`, `stud_academic_status`) 
-                  VALUES ('$stud_course', '$fname', '$mname', '$lname', '$stud_phone', '$stud_email', '$stud_address', '$stud_gender', '$yr_lvl', '$add_stud_Sy', '$add_sem', '$add_acadStatus')";
+        $query = "INSERT INTO `student` (`stud_id`,`stud_course`, `stud_fname`, `stud_mname`, `stud_lname`, `stud_phone`, `stud_bday`, `stud_address`, `stud_gender`, `stud_year_level`, `stud_school_year`, `stud_sem`, `stud_academic_status`) 
+                  VALUES ('$stud_id','$stud_course', '$fname', '$mname', '$lname', '$stud_phone', '$stud_bday', '$stud_address', '$stud_gender', '$yr_lvl', '$add_stud_Sy', '$add_sem', '$add_acadStatus')";
     
         if ($this->conn->query($query)) {
             return true; 
@@ -394,15 +445,15 @@ class global_class extends db_connect
         }
     }
 
-    public function UpdateStudent($stud_id, $stud_course, $fname, $mname, $lname,$stud_phone, $stud_email,$stud_address,$stud_gender,$yr_lvl,$stud_Sy,$sem,$acadStatus) {
-       
+    public function UpdateStudent($update_target_stud_id, $stud_course, $fname, $mname, $lname,$stud_phone, $stud_bday,$stud_address,$stud_gender,$yr_lvl,$stud_Sy,$sem,$acadStatus,$new_update_stud_id) {
         // Build the SQL query
         $sql = "UPDATE `student` 
-                SET `stud_fname` = '$fname',
+                SET `stud_id` = '$new_update_stud_id',
+                    `stud_fname` = '$fname',
                     `stud_mname` = '$mname',
                     `stud_lname` = '$lname', 
                     `stud_phone` = '$stud_phone',
-                    `stud_email` = '$stud_email',
+                    `stud_bday` = '$stud_bday',
                     `stud_address` = '$stud_address',
                     `stud_gender` = '$stud_gender',
                     `stud_year_level` = '$yr_lvl',
@@ -410,7 +461,7 @@ class global_class extends db_connect
                     `stud_sem` = '$sem',
                     `stud_academic_status` = '$acadStatus',
                     `stud_course` = '$stud_course'
-                WHERE `stud_id` = '$stud_id'";
+                WHERE `stud_id` = '$update_target_stud_id'";
         
         // Execute the query
         if ($this->conn->query($sql)) {
@@ -651,39 +702,7 @@ class global_class extends db_connect
 
 
 
-    public function checkStudIDExists($stud_code) {
-        $sql = "SELECT COUNT(*) FROM `student` WHERE `stud_code` = ?";
-        $stmt = $this->conn->prepare($sql);
-        
-        if ($stmt === false) {
-            return false;
-        }
-        $stmt->bind_param('s', $stud_code);
-        $stmt->execute();
-        
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        $stmt->close();
-        
-        return $count > 0;
-    }
 
-
-
-    public function addStudentProfileImage($stud_code, $profile_img) {
-        // Prepare the SQL query with placeholders
-        $sql = "UPDATE `student` SET `stud_profile_img` = ? WHERE `stud_code` = ?";
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt === false) {
-            return false;
-        }
-        $stmt->bind_param('ss', $profile_img, $stud_code);
-        $success = $stmt->execute();
-        
-        $stmt->close();
-        
-        return $success;
-    }
 
     
 
@@ -740,41 +759,6 @@ class global_class extends db_connect
 
 
 
-
-
-    public function updateStudentProfileImage($stud_id,$stud_code, $profile_img) {
-        $sql = "UPDATE `student` SET `stud_profile_img` = ? WHERE `stud_id` = ?";
-        $stmt = $this->conn->prepare($sql);
-        if ($stmt === false) {
-            return false;
-        }
-        $stmt->bind_param('si', $profile_img, $stud_id);
-        $success = $stmt->execute();
-        
-        $stmt->close();
-        
-        return $success;
-    }
-
-
-    public function getStudentProfileImage($stud_id) {
-        // SQL query to fetch the profile image path
-        $sql = "SELECT stud_profile_img FROM student WHERE stud_id = $stud_id";
-        $result = $this->conn->query($sql);
-        if ($result) {
-            $row = $result->fetch_assoc();
-            if ($row) {
-                return $row['stud_profile_img'];
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-    
-    
-    
     
     
     

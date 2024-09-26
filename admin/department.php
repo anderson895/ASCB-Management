@@ -114,12 +114,12 @@ if (isset($_SESSION['user_id'])) {
                   <option selected disabled value="">Select Course</option>
                   <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
                   <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
-                  <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
-                  <option value="Bachelor of Science in Electrical Engineering">Bachelor of Science in Electrical Engineering</option>
-                  <option value="Bachelor of Science in Mechanical Engineering">Bachelor of Science in Mechanical Engineering</option>
-                  <option value="Bachelor of Science in Civil Engineering">Bachelor of Science in Civil Engineering</option>
-                  <option value="Bachelor of Science in Chemistry">Bachelor of Science in Chemistry</option>
-                  <option value="Bachelor of Science in Mathematics">Bachelor of Science in Mathematics</option>
+                  <option value="Bachelor of Science in Information System">Bachelor of Science in Information System</option>
+                  <option value="Bachelor of Science in Information Criminology">Bachelor of Science in Information Criminology</option>
+                  <option value="Bachelor of Secondary Education in English">Bachelor of Secondary Education in English</option>
+                  <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+                  <option value="Bachelor of Secondary Education in Social Studies">Bachelor of Secondary Education in Social Studies</option>
+                  <option value="Bachelor of Secondary Education in Mathematics">Bachelor of Secondary Education in Mathematics</option>
                 </select>
                 <label for="export_dept_course">Course</label>
               </div>

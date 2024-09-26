@@ -205,62 +205,104 @@ if ($result) {
                echo 200;
        } elseif ($_POST['SubmitType'] == 'AddStudent') {    
         
-            
-                                     
-                                        $fname = $_POST['add_stud_fname'];
-                                        $mname = $_POST['add_stud_mname'];
-                                        $lname = $_POST['add_stud_lname'];
-                                        $yr_lvl = $_POST['add_yr_lvl'];
-                                        $add_stud_Sy = $_POST['add_stud_Sy'];
-                                        $add_sem = $_POST['add_sem'];
-                                        $add_acadStatus = $_POST['add_acadStatus'];
-                                        $stud_course = $_POST['stud_course'];
+ 
 
-                                        //start new added
-                                        $stud_phone = $_POST['add_stud_phone'];
-                                        $stud_email = $_POST['add_stud_email'];
-                                        $stud_address = $_POST['add_stud_address'];
-                                        $stud_gender = $_POST['add_stud_gender'];
-                                        //end new added
-                                       
+// Main code where you process the input
+$stud_id = $_POST['add_stud_id'];
 
-                                        $result = $db->addStudent($stud_course, $fname, $mname, $lname,$stud_phone, $stud_email,$stud_address,$stud_gender,$yr_lvl,$add_stud_Sy,$add_sem,$add_acadStatus);
-                                        if ($result) {
-                                            echo '200'; 
-                                        }
+// Function to check if a stud_id already exists in the database
+function isStudIDUnique($db, $stud_id) {
+    return !$db->checkStudIDExists($stud_id);
+}
+
+// If the provided stud_id is empty, generate a unique one
+if (empty($stud_id)) {
+    // Generate a unique stud_id
+    $stud_id = $db->generateUniqueStudID();
+} else {
+    // Check if the provided stud_id already exists
+    if (!isStudIDUnique($db, $stud_id)) {
+        // If the ID already exists, you can either generate a new one or return an error
+        echo "STUDENT_ID_ALREADY_EXIST";
+        exit; // Stop further execution
+    }
+}
+
+// Retrieve other form data
+$fname = $_POST['add_stud_fname'];
+$mname = $_POST['add_stud_mname'];
+$lname = $_POST['add_stud_lname'];
+$yr_lvl = $_POST['add_yr_lvl'];
+$add_stud_Sy = $_POST['add_stud_Sy'];
+$add_sem = $_POST['add_sem'];
+$add_acadStatus = $_POST['add_acadStatus'];
+$stud_course = $_POST['stud_course'];
+$stud_phone = $_POST['add_stud_phone'];
+$stud_bday = $_POST['add_stud_bday'];
+$stud_address = $_POST['add_stud_address'];
+$stud_gender = $_POST['add_stud_gender'];
+
+// Insert the new student record into the database
+$result = $db->addStudent($stud_id, $stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy, $add_sem, $add_acadStatus);
+
+if ($result) {
+    echo '200'; // Success
+} else {
+    echo 'Error'; // Handle the error appropriately
+}
+
+        
                                        
                             } elseif ($_POST['SubmitType'] == 'EditStudent'){
 
-                                
-                                                        $stud_id = $_POST['update_stud_id'];
-                                                        $fname = $_POST['update_stud_fname'];
-                                                        $mname = $_POST['update_stud_mname'];
-                                                        $lname = $_POST['update_stud_lname'];
-                                                        $yr_lvl = $_POST['update_yr_lvl'];
+                                // Main code where you process the input
+$update_target_stud_id = $_POST['update_target_stud_id'];
+$new_update_stud_id = $_POST['new_update_stud_id'];
 
-                                                        $sem = $_POST['edit_sem'];
-                                                        $acadStatus = $_POST['edit_acadStatus'];
 
-                                                        $stud_Sy= $_POST['update_stud_Sy'];
-                                                        $stud_course = $_POST['update_stud_course'];
-                                    
-                                                        
-                                                        //start new added
-                                                        $stud_phone = $_POST['update_phone_num'];
-                                                        $stud_email = $_POST['update_stud_email'];
-                                                        $stud_address = $_POST['update_stud_address'];
-                                                        $stud_gender = $_POST['update_stud_gender'];
-                                                        //end new added
-                                        
-                                        $result = $db->UpdateStudent($stud_id, $stud_course, $fname, $mname, $lname,$stud_phone, $stud_email,$stud_address,$stud_gender,$yr_lvl,$stud_Sy,$sem,$acadStatus);
-                                        
+// Function to check if a stud_id already exists in the database
+function isStudIDUnique($db, $new_update_stud_id) {
+    return !$db->checkStudIDExists($new_update_stud_id);
+}
 
-                                        
-                                        if ($result) {
-                                                        echo '200'; 
-                                        } else {
-                                            echo 'Error adding user';
-                                        }
+// If the provided stud_id is empty, generate a unique one
+if (empty($new_update_stud_id)) {
+    // Generate a unique stud_id
+    $new_update_stud_id = $db->generateUniqueStudID();
+} else {
+    // Check if the provided stud_id already exists
+    if (!isStudIDUnique($db, $new_update_stud_id)&&$update_target_stud_id!=$new_update_stud_id) {
+        // If the ID already exists, you can either generate a new one or return an error
+        echo "STUDENT_ID_ALREADY_EXIST";
+        exit; // Stop further execution
+    }
+}
+$fname = $_POST['update_stud_fname'];
+$mname = $_POST['update_stud_mname'];
+$lname = $_POST['update_stud_lname'];
+$yr_lvl = $_POST['update_yr_lvl'];
+$sem = $_POST['edit_sem'];
+$acadStatus = $_POST['edit_acadStatus'];
+$stud_Sy = $_POST['update_stud_Sy'];
+$stud_course = $_POST['update_stud_course'];
+
+// New added fields
+$stud_phone = $_POST['update_phone_num'];
+$stud_bday = $_POST['update_stud_bday'];
+$stud_address = $_POST['update_stud_address'];
+$stud_gender = $_POST['update_stud_gender'];
+
+
+
+// Proceed to update the student record
+$result = $db->UpdateStudent($update_target_stud_id, $stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $stud_Sy, $sem, $acadStatus,$new_update_stud_id);
+
+if ($result) {
+    echo '200'; // Success
+} else {
+    echo 'Error updating user'; // Handle the error appropriately
+}
+
                                         
                  
                          }elseif($_POST['SubmitType'] == 'AddStudentsSubject'){

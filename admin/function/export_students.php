@@ -39,11 +39,15 @@ $headers = [
     'B2' => 'First Name', 
     'C2' => 'Middle Name',
     'D2' => 'Last Name', 
-    'E2' => 'Course', 
-    'F2' => 'Year Level', 
-    'G2' => 'Trimester',
-    'H2' => 'School Year', 
-    'I2' => 'Academic Status'
+    'E2' => 'Date Of Birth', 
+    'F2' => 'Phone Number', 
+    'G2' => 'Address', 
+    'H2' => 'Gender', 
+    'I2' => 'Course', 
+    'J2' => 'Year Level', 
+    'K2' => 'Trimester',
+    'L2' => 'School Year', 
+    'M2' => 'Academic Status'
 ];
 
 foreach ($headers as $cell => $header) {
@@ -71,10 +75,10 @@ $headerStyleArray = [
         ],
     ],
 ];
-$sheet->getStyle('A2:I2')->applyFromArray($headerStyleArray);
+$sheet->getStyle('A2:M2')->applyFromArray($headerStyleArray);
 
 // Adjust column widths
-foreach (range('A', 'I') as $columnID) {
+foreach (range('A', 'M') as $columnID) {
     $sheet->getColumnDimension($columnID)->setAutoSize(true);
 }
 
@@ -90,11 +94,15 @@ if ($get_All_student) {
         $sheet->setCellValue('B' . $rowCount, ucfirst($student['stud_fname']));
         $sheet->setCellValue('C' . $rowCount, ucfirst($student['stud_mname']));
         $sheet->setCellValue('D' . $rowCount, ucfirst($student['stud_lname']));
-        $sheet->setCellValue('E' . $rowCount, $student['stud_course']);
-        $sheet->setCellValue('F' . $rowCount, $student['stud_year_level']);
-        $sheet->setCellValue('G' . $rowCount, $student['stud_sem']);
-        $sheet->setCellValue('H' . $rowCount, $student['stud_school_year']);
-        $sheet->setCellValue('I' . $rowCount, $student['stud_academic_status']);
+        $sheet->setCellValue('E' . $rowCount, $student['stud_bday']);
+        $sheet->setCellValue('F' . $rowCount, $student['stud_phone']);
+        $sheet->setCellValue('G' . $rowCount, $student['stud_address']);
+        $sheet->setCellValue('H' . $rowCount, $student['stud_gender']);
+        $sheet->setCellValue('I' . $rowCount, $student['stud_course']);
+        $sheet->setCellValue('J' . $rowCount, $student['stud_year_level']);
+        $sheet->setCellValue('K' . $rowCount, $student['stud_sem']);
+        $sheet->setCellValue('L' . $rowCount, $student['stud_school_year']);
+        $sheet->setCellValue('M' . $rowCount, $student['stud_academic_status']);
 
         // Adjust the row height to fit the image
         $sheet->getRowDimension($rowCount)->setRowHeight(50);

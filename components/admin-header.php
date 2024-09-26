@@ -27,8 +27,11 @@ if (isset($_SESSION['admin_id'])) {
 if($isLogin==false){ 
   header("location: ../index.php");
 }
-
 ?>
+
+
+
+
 <!doctype html>
 <html lang="en">
   <head>

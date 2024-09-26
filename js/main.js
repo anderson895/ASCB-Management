@@ -285,7 +285,7 @@ $(document).on('click', '.TogglerUpdateStudent', function(e) {
   var lname = $(this).attr('data-lname');
 
   var phone = $(this).attr('data-phone');
-  var email = $(this).attr('data-email');
+  var bday = $(this).attr('data-bday');
   var address = $(this).attr('data-address');
   var gender = $(this).attr('data-gender');
 
@@ -305,7 +305,8 @@ $(document).on('click', '.TogglerUpdateStudent', function(e) {
   
 
 
-  $('#update_stud_id').val(stud_id);
+  $('#update_target_stud_id').val(stud_id);
+  $('#new_update_stud_id').val(stud_id);
 
   $('#update_stud_code').val(stud_code)
   $('#update_stud_fname').val(fname)
@@ -313,7 +314,7 @@ $(document).on('click', '.TogglerUpdateStudent', function(e) {
   $('#update_stud_lname').val(lname)
 
   $('#update_phone_num').val(phone)
-  $('#update_stud_email').val(email)
+  $('#update_stud_bday').val(bday)
   $('#update_stud_address').val(address)
   $('#update_stud_gender').val(gender)
 

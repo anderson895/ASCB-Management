@@ -1,30 +1,18 @@
-change STUDENT IT auto generate
-add student form add
-	-phone number
-	-gmail address
-	-address
-	-gender
-	-remove student image
+on student 
+-add student id input and set it manual input or automatic when the
+ user skip the user ID
+ (ID format start from 202401  5-7 digit)
+
+-add year level for GRADUATE
+-email changed to birthday
 
 
+subject
+-subject for 4th year
+-subject for GRADUATE
 
-add grading system
-	
-department add filter excel export
-	- based on course 
-	- based on department
-	- based on yearLevel
-	//- based on subject //
-	- export excel follow the format sent from the client
-
-add subject
-	-add search
-	-
-
-subject 
-	-view list subject enrolled
-	-export excel follow the format sent from client
-
+on export student
+-include all student information
 
 
 

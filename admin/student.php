@@ -50,13 +50,14 @@ if (isset($_SESSION['user_id'])) {
         <thead>
             <tr>
                 <th>STUDENT ID</th>
+                <th>Last Name</th>
                 <th>First Name</th>
                 <th>Middle Name</th>
-                <th>Last Name</th>
                 <th>Course</th>
                 <th>Year Level</th>
                 <th>Trimester</th>
                 <th>School Year</th>
+                <th>Academic Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -68,13 +69,14 @@ if (isset($_SESSION['user_id'])) {
             ?>
                 <tr data-school_year="<?=$student['stud_school_year']?>" data-semester="<?=$student['stud_sem']?>">
                     <td class="text-center"><?=$student['stud_id']; ?></td>
+                    <td><?=ucfirst($student['stud_lname']); ?></td>
                     <td><?=ucfirst($student['stud_fname']); ?></td>
                     <td><?=ucfirst($student['stud_mname']); ?></td>
-                    <td><?=ucfirst($student['stud_lname']); ?></td>
                     <td><?=$student['stud_course']; ?></td>
                     <td><?=$student['stud_year_level'] ?></td>
                     <td><?=$student['stud_sem'];?></td>
                     <td><?=$student['stud_school_year']; ?></td>
+                    <td><?=$student['stud_academic_status']; ?></td>
                     <td>
                         <div id="delLoad-<?=$student['stud_id']?>">
                             <!-- Update Button -->
@@ -86,7 +88,7 @@ if (isset($_SESSION['user_id'])) {
                                 data-lname="<?=$student['stud_lname']?>"
 
                                 data-phone="<?=$student['stud_phone']?>"
-                                data-email="<?=$student['stud_email']?>"
+                                data-bday="<?=$student['stud_bday']?>"
                                 data-address="<?=$student['stud_address']?>"
                                 data-gender="<?=$student['stud_gender']?>"
 
@@ -141,9 +143,14 @@ if (isset($_SESSION['user_id'])) {
             <div class="modal-body">
                 <form id="frmUpdateStudent" enctype="multipart/form-data">
 
-                    <input hidden type="text" class="form-control" id="update_stud_id" name="update_stud_id" required>
+                    <input hidden type="text" class="form-control" id="update_target_stud_id" name="update_target_stud_id" required>
 
-               
+                    <!--start new added field --->
+                    <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="new_update_stud_id" placeholder="Enter Student ID " name="new_update_stud_id" >
+                            <label for="new_update_stud_id">Student ID (optional)</label>
+                    </div>
+                    <!--end new added field --->
 
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="update_stud_fname" placeholder="Enter First Name" name="update_stud_fname" required >
@@ -158,15 +165,15 @@ if (isset($_SESSION['user_id'])) {
                         <label for="update_stud_lname">Last Name</label>
                     </div>
 
-                 <!--start new added field --->
+           
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="update_phone_num" placeholder="Enter Phone Number" name="update_phone_num" required>
                         <label for="update_phone_num">Phone Number</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="update_stud_email" placeholder="Enter Gmail Address" name="update_stud_email" required>
-                        <label for="update_stud_email">Email</label>
+                        <input type="date" class="form-control" id="update_stud_bday" placeholder="Enter Gmail Address" name="update_stud_bday" required>
+                        <label for="update_stud_bday">Birthday</label>
                     </div>
 
                     <div class="form-floating mb-3">
@@ -183,7 +190,7 @@ if (isset($_SESSION['user_id'])) {
                         </select>
                         <label for="update_stud_gender">Gender</label>
                     </div>
-                     <!--end new added field --->
+          
 
 
 
@@ -195,6 +202,7 @@ if (isset($_SESSION['user_id'])) {
                             <option value="2nd Year">2nd Year</option>
                             <option value="3rd Year">3rd Year</option>
                             <option value="4th Year">4th Year</option>
+                            <option value="Graduate">Graduate</option>
                         </select>
                         <label for="update_yr_lvl">Year Level</label>
                     </div>
@@ -238,14 +246,14 @@ if (isset($_SESSION['user_id'])) {
 
                     <div class="form-floating mb-3">
                     <select class="form-control" name="update_stud_course" id="update_stud_course" required>
-                        <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
-                        <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
-                        <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
-                        <option value="Bachelor of Science in Electrical Engineering">Bachelor of Science in Electrical Engineering</option>
-                        <option value="Bachelor of Science in Mechanical Engineering">Bachelor of Science in Mechanical Engineering</option>
-                        <option value="Bachelor of Science in Civil Engineering">Bachelor of Science in Civil Engineering</option>
-                        <option value="Bachelor of Science in Chemistry">Bachelor of Science in Chemistry</option>
-                        <option value="Bachelor of Science in Mathematics">Bachelor of Science in Mathematics</option>
+                  <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+                  <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
+                  <option value="Bachelor of Science in Information System">Bachelor of Science in Information System</option>
+                  <option value="Bachelor of Science in Information Criminology">Bachelor of Science in Information Criminology</option>
+                  <option value="Bachelor of Secondary Education in English">Bachelor of Secondary Education in English</option>
+                  <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+                  <option value="Bachelor of Secondary Education in Social Studies">Bachelor of Secondary Education in Social Studies</option>
+                  <option value="Bachelor of Secondary Education in Mathematics">Bachelor of Secondary Education in Mathematics</option>
                     </select>
 
                         <label for="update_stud_course">Course</label>
@@ -278,6 +286,14 @@ if (isset($_SESSION['user_id'])) {
             <div class="modal-body">
                 <form id="frmAddStudent" enctype="multipart/form-data">
 
+                 <!--start new added field --->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="add_stud_id" placeholder="Enter Student ID " name="add_stud_id" >
+                        <label for="add_stud_id">Student ID (optional)</label>
+                    </div>
+                  <!--end new added field --->
+
+
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="add_stud_fname" placeholder="Enter First Name" name="add_stud_fname" required >
                         <label for="add_stud_fname">First Name</label>
@@ -291,16 +307,17 @@ if (isset($_SESSION['user_id'])) {
                         <label for="add_stud_lname">Last Name</label>
                     </div>
 
-                    <!--start new added field --->
+                   
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="add_phone_num" placeholder="Enter Phone Number" name="add_stud_phone" required>
                         <label for="add_phone_num">Phone Number</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="add_stud_email" placeholder="Enter Gmail Address" name="add_stud_email" required>
-                        <label for="add_email">Email</label>
+                        <input type="date" class="form-control" id="add_stud_bday" placeholder="Enter Birthday" name="add_stud_bday" required>
+                        <label for="add_stud_bday">Birthday</label>
                     </div>
+
 
                     <div class="form-floating mb-3">
                         <textarea class="form-control" id="add_address" placeholder="Enter Address" name="add_stud_address" required></textarea>
@@ -318,7 +335,6 @@ if (isset($_SESSION['user_id'])) {
                     </div>
 
 
-                     <!--end news added field --->
 
 
                     <div class="form-floating mb-3">
@@ -328,6 +344,7 @@ if (isset($_SESSION['user_id'])) {
                             <option value="2nd Year">2nd Year</option>
                             <option value="3rd Year">3rd Year</option>
                             <option value="4th Year">4th Year</option>
+                            <option value="Graduate">Graduate</option>
                         </select>
                         <label for="add_yr_lvl">Year Level</label>
                     </div>
@@ -371,14 +388,14 @@ if (isset($_SESSION['user_id'])) {
 
                     <div class="form-floating mb-3">
                         <select class="form-control" name="stud_course" id="stud_course" required>
-                            <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
-                            <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
-                            <option value="Bachelor of Science in Business Administration">Bachelor of Science in Business Administration</option>
-                            <option value="Bachelor of Science in Electrical Engineering">Bachelor of Science in Electrical Engineering</option>
-                            <option value="Bachelor of Science in Mechanical Engineering">Bachelor of Science in Mechanical Engineering</option>
-                            <option value="Bachelor of Science in Civil Engineering">Bachelor of Science in Civil Engineering</option>
-                            <option value="Bachelor of Science in Chemistry">Bachelor of Science in Chemistry</option>
-                            <option value="Bachelor of Science in Mathematics">Bachelor of Science in Mathematics</option>
+                  <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+                  <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
+                  <option value="Bachelor of Science in Information System">Bachelor of Science in Information System</option>
+                  <option value="Bachelor of Science in Information Criminology">Bachelor of Science in Information Criminology</option>
+                  <option value="Bachelor of Secondary Education in English">Bachelor of Secondary Education in English</option>
+                  <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
+                  <option value="Bachelor of Secondary Education in Social Studies">Bachelor of Secondary Education in Social Studies</option>
+                  <option value="Bachelor of Secondary Education in Mathematics">Bachelor of Secondary Education in Mathematics</option>
                         </select>
                         <label for="stud_course">Course</label>
                     </div>
