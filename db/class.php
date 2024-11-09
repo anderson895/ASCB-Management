@@ -172,11 +172,11 @@ public function generateUniqueStudID() {
     public function get_All_studentBasedSubject($subject_id)
     {
         $query = $this->conn->prepare("
-            SELECT ss.ss_stud_id, AVG(ss.ss_final_grade) AS general_average,stud.stud_fname,stud.stud_mname,stud.stud_lname,stud_id,ss_final_grade
+            SELECT sub.course_code,ss.ss_stud_id, AVG(ss.ss_final_grade) AS general_average,stud.stud_fname,stud.stud_mname,stud.stud_lname,stud_id,ss_final_grade
             FROM `student_subject` AS ss
             LEFT JOIN subject AS sub ON sub.subject_id = ss.ss_subject_id
             LEFT JOIN student AS stud ON stud.stud_id = ss.ss_stud_id
-            WHERE ss.ss_subject_id = ? AND stud.stud_status = '1' AND ss.ss_final_grade > 0
+            WHERE ss.ss_subject_id = ? AND stud.stud_status = '1' 
             GROUP BY ss.ss_stud_id;
         ");
         

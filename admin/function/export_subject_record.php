@@ -13,13 +13,22 @@ $admin_db = new global_class();
 
 $subject_id = $_GET['subject_id'];
 
-$get_All_filtered_student = $admin_db->get_All_studentBasedSubject($subject_id);
+
 
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
+$get_All_filtered_student = $admin_db->get_All_studentBasedSubject($subject_id);
+
+$course_code = ''; // Initialize an empty variable for course_code
+foreach ($get_All_filtered_student as $student) {
+    $course_code = $student['course_code'];
+    // Other processing can go here if needed
+}
+
 // Set the title header
-$sheet->setCellValue('A1', 'STUDENT GRADE');
+$sheet->setCellValue('A1', 'STUDENT GRADE FOR '.$course_code);
+
 $sheet->mergeCells('A1:F1'); // Merge cells for title
 $sheet->getStyle('A1')->applyFromArray([
     'font' => [
