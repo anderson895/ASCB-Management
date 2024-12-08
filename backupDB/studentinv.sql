@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2024 at 03:35 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Sep 26, 2024 at 05:29 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -70,7 +70,6 @@ CREATE TABLE `student` (
   `stud_sem` varchar(60) NOT NULL,
   `stud_academic_status` varchar(60) NOT NULL,
   `stud_school_year` varchar(255) NOT NULL,
-  `stud_section` varchar(60) DEFAULT NULL,
   `stud_status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -78,12 +77,9 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`stud_id`, `stud_course`, `stud_fname`, `stud_mname`, `stud_lname`, `stud_phone`, `stud_bday`, `stud_address`, `stud_gender`, `stud_year_level`, `stud_sem`, `stud_academic_status`, `stud_school_year`, `stud_section`, `stud_status`) VALUES
-(28, 'Bachelor of Science in Information Technology', 'Mark ', '', 'Espadera', '0931654654', '2024-10-04', 'comawas', 'male', '1st year', '1st', 'Irregular', '2024-2025', '11A', 1),
-(99, 'Bachelor of Science in Information Criminology', 'angela', '', 'Denise', '123123', '2024-09-19', 'aweqe', 'male', 'Graduate', '3rd', 'Regular', '2022-2023', '11C', 1),
-(2024001, 'Bachelor of Science in Information Technology', 'joshua anderson', '', 'padilla', '09454454744', '2024-11-09', 'Sta.rosa 2 Marilao Bulacan', 'male', '1st year', '1st', 'Regular', '2021-2022', '11A', 1),
-(2024002, 'Bachelor of Elementary Education', 'April Jane', '', 'De Leon', '09494494744', '2024-11-06', 'lomadegato marilao bulacan', 'female', '1st year', '1st', 'Regular', '2024-2025', '12B', 1),
-(2024003, 'Bachelor of Science in Computer Science', 'Juan', '', 'Dela Cruz', '09454454744', '2024-12-08', 'sta.rosa 2', 'male', '1st year', '1st', 'Regular', '2023-2024', '11A', 1);
+INSERT INTO `student` (`stud_id`, `stud_course`, `stud_fname`, `stud_mname`, `stud_lname`, `stud_phone`, `stud_bday`, `stud_address`, `stud_gender`, `stud_year_level`, `stud_sem`, `stud_academic_status`, `stud_school_year`, `stud_status`) VALUES
+(28, 'Bachelor of Science in Information Technology', 'Mark ', '', 'Espadera', '0931654654', '2024-10-04', 'comawas', 'male', '1st year', '1st', 'Irregular', '2024-2025', 1),
+(99, 'Bachelor of Science in Information Criminology', 'angela', '', 'Denise', '123123', '2024-09-19', 'aweqe', 'male', 'Graduate', '3rd', 'Regular', '2022-2023', 1);
 
 -- --------------------------------------------------------
 
@@ -103,13 +99,7 @@ CREATE TABLE `student_subject` (
 --
 
 INSERT INTO `student_subject` (`ss_id`, `ss_stud_id`, `ss_subject_id`, `ss_final_grade`) VALUES
-(83, 99, 518, 0.00),
-(84, 28, 64, 0.00),
-(85, 28, 68, 0.00),
-(86, 2024002, 68, 0.00),
-(87, 2024001, 64, 0.00),
-(88, 2024001, 66, 0.00),
-(89, 99, 523, 0.00);
+(83, 99, 518, 0.00);
 
 -- --------------------------------------------------------
 
@@ -648,7 +638,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`admin_id`, `fname`, `mname`, `lname`, `email`, `username`, `password`, `type`, `profile_img`, `status`) VALUES
-(1, 'Joshua Anderson', 'raymundo', 'Padilla', 'andersonandy046@gmail.com', 'admin', '$2y$10$2pFT3SGuzCOI7XnCliJc6eqE25hycS3HtHcgkSoYqekV7HhXzqB/S', 'super_admin', 'profile_672f525a3211d1.09084020.jpg', 1),
+(1, 'Joshua Anderson', 'raymundo', 'Padilla', 'andersonandy046@gmail.com', 'admin', '$2y$10$JBj5w7egG82WPXwSjZrJROlMs7bSuXJBMh/qQ.S1dfEIkM3XmBhTC', 'super_admin', 'profile_66e03e8de1c266.83250222.jpg', 1),
 (24, 'andy', '', 'anderson', 'andyanderson895@yahoo.com', 'andyanderson895', '$2y$10$coNIitr1ogZfvjC0pZ4Sv.J8fz7q3P3Pzi07064MYnDgoRv7zh8MK', 'admin', 'profile_66d4a8ddcd5f89.27748458.jpg', 1),
 (25, 'Mark', '', 'Espadera', 'gab@gmail.com', 'callmegab', '$2y$10$hYaB7MmcE4RYVQM9IaA3iOQE30lYpWC6njTXtKq2ktk6HnRioIbcC', 'super_admin', 'profile_66e19f52940eb8.36184867.jpeg', 1);
 
@@ -707,7 +697,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `student_subject`
 --
 ALTER TABLE `student_subject`
-  MODIFY `ss_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `ss_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT for table `subject`

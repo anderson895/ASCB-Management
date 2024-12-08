@@ -277,7 +277,7 @@ $(document).on('click', '.TogglerUpdateStudent', function(e) {
 
 
   var stud_id = $(this).attr('data-stud_id');
-
+  var stud_section = $(this).attr('data-stud_section');
   var stud_code = $(this).attr('data-stud_code');
   
   var fname = $(this).attr('data-fname');
@@ -303,8 +303,8 @@ $(document).on('click', '.TogglerUpdateStudent', function(e) {
   
 
   
-
-
+  
+  $('#update_stud_section').val(stud_section);
   $('#update_target_stud_id').val(stud_id);
   $('#new_update_stud_id').val(stud_id);
 

@@ -241,9 +241,9 @@ $stud_phone = $_POST['add_stud_phone'];
 $stud_bday = $_POST['add_stud_bday'];
 $stud_address = $_POST['add_stud_address'];
 $stud_gender = $_POST['add_stud_gender'];
-
+$stud_section = $_POST['add_stud_section'];
 // Insert the new student record into the database
-$result = $db->addStudent($stud_id, $stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy, $add_sem, $add_acadStatus);
+$result = $db->addStudent($stud_id, $stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy, $stud_section,$add_sem, $add_acadStatus);
 
 if ($result) {
     echo '200'; // Success
@@ -292,10 +292,10 @@ $stud_bday = $_POST['update_stud_bday'];
 $stud_address = $_POST['update_stud_address'];
 $stud_gender = $_POST['update_stud_gender'];
 
-
+$stud_section = $_POST['update_stud_section'];
 
 // Proceed to update the student record
-$result = $db->UpdateStudent($update_target_stud_id, $stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $stud_Sy, $sem, $acadStatus,$new_update_stud_id);
+$result = $db->UpdateStudent($update_target_stud_id, $stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $stud_Sy,$stud_section, $sem, $acadStatus,$new_update_stud_id);
 
 if ($result) {
     echo '200'; // Success

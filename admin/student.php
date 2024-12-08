@@ -57,6 +57,7 @@ if (isset($_SESSION['user_id'])) {
                 <th>Year Level</th>
                 <th>Trimester</th>
                 <th>School Year</th>
+                <th>Section</th>
                 <th>Academic Status</th>
                 <th>Actions</th>
             </tr>
@@ -76,6 +77,7 @@ if (isset($_SESSION['user_id'])) {
                     <td><?=$student['stud_year_level'] ?></td>
                     <td><?=$student['stud_sem'];?></td>
                     <td><?=$student['stud_school_year']; ?></td>
+                    <td><?=$student['stud_section']; ?></td>
                     <td><?=$student['stud_academic_status']; ?></td>
                     <td>
                         <div id="delLoad-<?=$student['stud_id']?>">
@@ -94,6 +96,7 @@ if (isset($_SESSION['user_id'])) {
 
                                 data-year_level="<?=$student['stud_year_level']?>"
                                 data-stud_school_year="<?=$student['stud_school_year']?>"
+                                data-stud_section="<?=$student['stud_section']?>"
                                 data-stud_sem="<?=$student['stud_sem']?>"
                                 data-stud_academic_status="<?=$student['stud_academic_status']?>"
                                 data-stud_course="<?=$student['stud_course']?>"
@@ -259,6 +262,25 @@ if (isset($_SESSION['user_id'])) {
                         <label for="update_stud_course">Course</label>
                     </div>
                     
+                <!--start new added field --->
+                    <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="update_stud_section" placeholder="" name="update_stud_section" >
+                        <label for="update_stud_section">Section (USE ALL UPPERCASE)</label>
+                    </div>
+                 <!--end new added field --->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <div class="form-floating mb-3 text-center">
                         <button type="submit" class="btn btn-success" id="btnUpdateStudent">Update Student</button>
@@ -286,12 +308,13 @@ if (isset($_SESSION['user_id'])) {
             <div class="modal-body">
                 <form id="frmAddStudent" enctype="multipart/form-data">
 
-                 <!--start new added field --->
-                    <div class="form-floating mb-3">
+               
+
+                   <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="add_stud_id" placeholder="Enter Student ID " name="add_stud_id" >
                         <label for="add_stud_id">Student ID (optional)</label>
                     </div>
-                  <!--end new added field --->
+
 
 
                     <div class="form-floating mb-3">
@@ -399,6 +422,14 @@ if (isset($_SESSION['user_id'])) {
                         </select>
                         <label for="stud_course">Course</label>
                     </div>
+
+
+                <!--start new added field --->
+                      <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="add_stud_section" placeholder="" name="add_stud_section" >
+                        <label for="add_stud_section">Section (USE ALL UPPERCASE)</label>
+                    </div>
+                <!--end new added field --->
 
 
                     <div class="form-floating mb-3 text-center">

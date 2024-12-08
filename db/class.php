@@ -288,6 +288,39 @@ public function generateUniqueStudID() {
         }
     }
 
+
+
+    public function get_All_subject_frequency()
+    {
+        $query = $this->conn->prepare("SELECT 
+    sub.course_code,
+    sub.descriptive_title,
+    sub.subject_id,
+    stud.stud_section,
+    COUNT(ss.ss_id) AS student_count
+FROM 
+    student_subject AS ss
+LEFT JOIN 
+    student AS stud 
+    ON ss.ss_stud_id = stud.stud_id
+LEFT JOIN 
+    subject AS sub 
+    ON ss.ss_subject_id = sub.subject_id
+GROUP BY 
+    sub.subject_id, 
+    stud.stud_section
+ORDER BY 
+    stud.stud_section;
+
+        ");
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+
+    
     public function get_AllDepartment()
     {
         $query = $this->conn->prepare("SELECT * FROM `department` where dept_status	='1'");
@@ -432,11 +465,11 @@ public function generateUniqueStudID() {
 
     
 
-    public function addStudent($stud_id,$stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy, $add_sem, $add_acadStatus)
+    public function addStudent($stud_id,$stud_course, $fname, $mname, $lname, $stud_phone, $stud_bday, $stud_address, $stud_gender, $yr_lvl, $add_stud_Sy,$stud_section, $add_sem, $add_acadStatus)
     {
         // Prepare the SQL statement
-        $query = "INSERT INTO `student` (`stud_id`,`stud_course`, `stud_fname`, `stud_mname`, `stud_lname`, `stud_phone`, `stud_bday`, `stud_address`, `stud_gender`, `stud_year_level`, `stud_school_year`, `stud_sem`, `stud_academic_status`) 
-                  VALUES ('$stud_id','$stud_course', '$fname', '$mname', '$lname', '$stud_phone', '$stud_bday', '$stud_address', '$stud_gender', '$yr_lvl', '$add_stud_Sy', '$add_sem', '$add_acadStatus')";
+        $query = "INSERT INTO `student` (`stud_id`,`stud_course`, `stud_fname`, `stud_mname`, `stud_lname`, `stud_phone`, `stud_bday`, `stud_address`, `stud_gender`, `stud_year_level`,`stud_school_year`,`stud_section`, `stud_sem`, `stud_academic_status`) 
+                  VALUES ('$stud_id','$stud_course', '$fname', '$mname', '$lname', '$stud_phone', '$stud_bday', '$stud_address', '$stud_gender', '$yr_lvl', '$add_stud_Sy','$stud_section', '$add_sem', '$add_acadStatus')";
     
         if ($this->conn->query($query)) {
             return true; 
@@ -445,7 +478,7 @@ public function generateUniqueStudID() {
         }
     }
 
-    public function UpdateStudent($update_target_stud_id, $stud_course, $fname, $mname, $lname,$stud_phone, $stud_bday,$stud_address,$stud_gender,$yr_lvl,$stud_Sy,$sem,$acadStatus,$new_update_stud_id) {
+    public function UpdateStudent($update_target_stud_id, $stud_course, $fname, $mname, $lname,$stud_phone, $stud_bday,$stud_address,$stud_gender,$yr_lvl,$stud_Sy,$stud_section,$sem,$acadStatus,$new_update_stud_id) {
         // Build the SQL query
         $sql = "UPDATE `student` 
                 SET `stud_id` = '$new_update_stud_id',
@@ -460,6 +493,7 @@ public function generateUniqueStudID() {
                     `stud_school_year` = '$stud_Sy',
                     `stud_sem` = '$sem',
                     `stud_academic_status` = '$acadStatus',
+                    `stud_section` = '$stud_section',
                     `stud_course` = '$stud_course'
                 WHERE `stud_id` = '$update_target_stud_id'";
         

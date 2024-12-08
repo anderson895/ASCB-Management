@@ -94,6 +94,10 @@ if($isLogin==false){
           </li>
 
 
+          <li>
+              <a href="frequency.php"><span class="fa fa-line-chart"></span> frequency</a>
+          </li>
+
 
        
          
