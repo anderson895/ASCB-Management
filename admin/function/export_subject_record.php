@@ -23,7 +23,8 @@ $get_All_filtered_student = $admin_db->get_All_studentBasedSubject($subject_id);
 $course_code = ''; // Initialize an empty variable for course_code
 foreach ($get_All_filtered_student as $student) {
     $course_code = $student['course_code'];
-    // Other processing can go here if needed
+    $course_code = preg_replace('/\s*\(.*\)/', '', $course_code); // Removes everything in parentheses including the parentheses
+    
 }
 
 // Set the title header
