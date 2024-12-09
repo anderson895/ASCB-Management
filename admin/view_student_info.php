@@ -25,8 +25,8 @@ $stud_id=$_GET['stud_id'];
   $stud_sem=$student['stud_sem'];
 
   $stud_academic_status=$student['stud_academic_status'];
-
-
+  $stud_section=$student['stud_section'];
+  
 
   
 
@@ -83,6 +83,7 @@ $stud_id=$_GET['stud_id'];
                                             <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Course:</span> <?=$stud_course?></li>
                                             <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Year level:</span> <?=$stud_year_level?></li>
                                             <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Status:</span> <?=$stud_academic_status?></li>
+                                            <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Section:</span> <?=$stud_section?></li>
                                         </ul>
                                     </div>
                                 </div>
