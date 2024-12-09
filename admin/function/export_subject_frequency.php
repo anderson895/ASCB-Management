@@ -11,6 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 $admin_db = new global_class();
 $get_All_subject = $admin_db->get_All_subject_frequency();
 
+
 if ($get_All_subject) {
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
@@ -44,7 +45,7 @@ if ($get_All_subject) {
     // Populate data and style each row
     $row = 2; // Start from the second row
     while ($subject = $get_All_subject->fetch_assoc()) {
-        $sheet->setCellValue("A{$row}", $subject['course_code']);
+        $sheet->setCellValue("A{$row}", preg_replace('/\s*\(.*\)/', '',$subject['course_code']));
         $sheet->setCellValue("B{$row}", $subject['descriptive_title']);
         $sheet->setCellValue("C{$row}", $subject['stud_section']);
         $sheet->setCellValue("D{$row}", $subject['student_count']);
