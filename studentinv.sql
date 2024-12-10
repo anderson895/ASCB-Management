@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 02:56 AM
+-- Generation Time: Dec 10, 2024 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `department` (
   `dept_id` int(11) NOT NULL,
   `dept_name` varchar(60) NOT NULL,
-  `dept_description` varchar(60) NOT NULL,
+  `dept_description` text NOT NULL,
   `dept_status` varchar(60) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -50,13 +50,14 @@ INSERT INTO `department` (`dept_id`, `dept_name`, `dept_description`, `dept_stat
 (9, 'MAED (N)', 'Master of Arts in Education', '1'),
 (10, 'MAED (O)', 'Master of Arts in Education', '1'),
 (11, 'BSBA MM (O)', 'Bachelor of Science in Business Administration', '1'),
-(12, 'BSBA FM (O)', 'Bachelor of Science in Business Administration ', '1'),
+(12, 'BSBA FM (O)', 'Bachelor of Science in Business Administration  1', '1'),
 (13, 'BSBA HRDM (O)', 'Bachelor of Science in Business Administration', '1'),
 (14, 'BSA (O)', 'Bachelor of Science in Accountancy', '1'),
-(15, 'BSBA FM (N)', 'Bachelor of Science in Business Administration', '1'),
+(15, 'BSBA FM (N)', 'Bachelor of Science in Business Administration 2', '1'),
 (16, 'BSBA MM (N)', 'Bachelor of Science in Business Administration', '1'),
 (17, 'BSBA HRDM (N)', 'Bachelor of Science in Business Administration', '1'),
-(18, 'BSA (N)', 'Bachelor of Science in Accountancy', '1');
+(18, 'BSA (N)', 'Bachelor of Science in Accountancy', '1'),
+(2319, 'BBMM', 'Bachelor of Science in Business Administration Major in Financial Management', '1');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,7 @@ INSERT INTO `department` (`dept_id`, `dept_name`, `dept_description`, `dept_stat
 
 CREATE TABLE `student` (
   `stud_id` int(11) NOT NULL,
-  `stud_course` varchar(60) NOT NULL,
+  `stud_course` text NOT NULL,
   `stud_fname` varchar(60) NOT NULL,
   `stud_mname` varchar(60) DEFAULT NULL,
   `stud_lname` varchar(60) NOT NULL,
@@ -145,7 +146,7 @@ INSERT INTO `student` (`stud_id`, `stud_course`, `stud_fname`, `stud_mname`, `st
 (2024110185, 'Bachelor of Science in Criminology', 'CHRISTIAN', 'BANTELAN', 'MONTENEGRO', '09619519009', '2006-05-16', 'P2 MAHABO, LINGIG, SURIGAO DEL SUR', 'male', '1st year', '12A', '1st_t', 'Regular', '2024-2025', 1),
 (2024110186, 'Bachelor of Elementary Education', 'CICILE', 'RUBION', 'CAREN', '09364670297', '1989-10-16', 'PUROK 6 MARAVILLE VILLAGE, TABON, BISLIG CITY', 'female', '3rd Year', '12A', '2nd_t', 'Regular', '2024-2025', 1),
 (2024110187, 'Bachelor of Elementary Education', 'SHAMAY NIECY', 'QUINAMPAY', 'ROSAREM', '0926041047', '2005-05-08', 'PUROK 1A DAMPINGAN, TABON, BISLIG CITY', 'female', '2nd Year', '12C', '2nd', 'Irregular', '2024-2025', 1),
-(2024110188, 'Bachelor of Science in Business Administration FM', 'JENNY', 'RONCALES', 'BETO', '09454375685', '2004-01-03', 'SAN FERNANDO, BISLIG CITY', 'female', '3rd Year', '12A', '2nd_t', 'Regular', '2024-2025', 1),
+(2024110188, 'Bachelor of Science in Business Administration Major in Financial Management', 'JENNY', 'RONCALES', 'BETO', '09454375685', '2004-01-03', 'SAN FERNANDO, BISLIG CITY', 'female', '3rd Year', '12A', '1st_s', 'Regular', '2024-2025', 1),
 (2024110189, 'Bachelor of Elementary Education', 'MECHELLE', 'G.', 'CONJURADO', '09303348962', '2002-06-22', 'TAGPOPORAN, LINGIG, SURIGAO DEL SUR', 'female', '2nd Year', '12A', '2nd_t', 'Regular', '2024-2025', 1),
 (2024110190, 'Bachelor of Elementary Education', 'DONNA ROSE', 'CABERTE', 'GARCIA ', '09270230417', '2004-09-20', 'KINABLANGAN DAVAO ORIENTAL', 'female', '3rd Year', '12A', '2nd_t', 'Regular', '2024-2025', 1),
 (2024110191, 'Bachelor of Elementary Education', 'MICHELLE', 'AVENIDO', 'CINCO', '09102439315', '2003-05-24', 'PUROK 6 MARAVILLE TABON, BISLIG CITY', 'female', '3rd Year', '12A', '2nd_t', 'Regular', '2024-2025', 1),
@@ -310,8 +311,8 @@ INSERT INTO `student` (`stud_id`, `stud_course`, `stud_fname`, `stud_mname`, `st
 (2024110350, 'Bachelor of Secondary Education in English', 'MILJAIM GRACE', 'GEVEROLA', 'OMBAOGAN', '09105436619', '2004-03-06', 'ROXAS ST., MANGAGOY, BISLIG CITY', 'female', '3rd Year', '12A', '2nd_t', 'Irregular', '2024-2025', 1),
 (2024110351, 'Bachelor of Secondary Education in English', 'ARVEX JHON', 'T.', 'SAJULGA', '09357256542', '2003-09-20', 'P-2 PANAGHIUSA DIST., MANGAGOY, BISLIG CITY', 'male', '2nd Year', '12A', '2nd_t', 'Irregular', '2024-2025', 1),
 (2024110352, 'Bachelor of Secondary Education in English', 'FRINCIS DIANA', 'A.', 'VERDON', '09532536121', '2002-07-21', 'P-4 PALO-ALTO, LINGIG, SURIGAO DEL SUR', 'female', '3rd Year', '12A', '2nd_t', 'Irregular', '2024-2025', 1),
-(2024110353, 'Bachelor of Secondary Education in Social Studies', 'MARWIN', 'L.', 'LORENZANA', '09157254283/09923804674', '1995-01-20', 'P-3A BARCELONA, LINGIG, SURIGAO DEL SUR', 'male', '2nd Year', '12A', '1st_t', 'Regular', '2024-2025', 1),
-(2024110354, 'Bachelor of Secondary Education in English', 'April', '', 'Jane', '09454454744', '2000-12-17', 'Grand Villas', 'female', '1st year', '12A', '1st', 'Regular', '2023-2024', 1);
+(2024110353, 'Bachelor of Secondary Education in Social Studies', 'MARWIN', 'L.', 'LORENZANA', '09157254283/09923804674', '1995-01-20', 'P-3A BARCELONA, LINGIG, SURIGAO DEL SUR', 'male', '2nd Year', '12A', '2nd', 'Regular', '2024-2025', 1),
+(2024110354, 'Bachelor of Secondary Education in English Bachelor of Secon', 'April', '', 'Jane', '09454454744', '2000-12-17', 'Grand Villas', 'female', '1st year', '12A', '1st', 'Regular', '2023-2024', 1);
 
 -- --------------------------------------------------------
 
@@ -2711,7 +2712,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2319;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2320;
 
 --
 -- AUTO_INCREMENT for table `student`

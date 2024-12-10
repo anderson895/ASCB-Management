@@ -214,9 +214,12 @@ if (isset($_SESSION['user_id'])) {
                     <div class="form-floating mb-3">
                         <select class="form-control" name="edit_sem" id="edit_sem" required>
                             
-                            <option value="1st">1st Semester</option>
-                            <option value="2nd">2nd Semester</option>
-                            <option value="3rd">3rd Semester</option>
+                            <option value="1st_s">1st Semester</option>
+                            <option value="2nd_s">2nd Semester</option>
+                            <option value="Summer">Summer</option>
+                            <option value="1st_t">1st Trimester</option>
+                            <option value="2nd_t">2nd Trimester</option>
+                            <option value="3rd_t">3rd Trimester</option>
                         </select><label for="edit_sem">Trimester</label>
                         
                     </div>
@@ -252,11 +255,16 @@ if (isset($_SESSION['user_id'])) {
                   <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
                   <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
                   <option value="Bachelor of Science in Information System">Bachelor of Science in Information System</option>
-                  <option value="Bachelor of Science in Information Criminology">Bachelor of Science in Information Criminology</option>
-                  <option value="Bachelor of Secondary Education in English">Bachelor of Secondary Education in English</option>
+                  <option value="Bachelor of Science in Criminology">Bachelor of Science in Criminology</option>
+                  <option value="Bachelor of Secondary Education Major in English">Bachelor of Secondary Education Major in English</option>
                   <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
-                  <option value="Bachelor of Secondary Education in Social Studies">Bachelor of Secondary Education in Social Studies</option>
-                  <option value="Bachelor of Secondary Education in Mathematics">Bachelor of Secondary Education in Mathematics</option>
+                  <option value="Bachelor of Secondary Education Major in Social Studies">Bachelor of Secondary Education Major in Social Studies</option>
+                  <option value="Bachelor of Secondary Education Major in Mathematics">Bachelor of Secondary Education Major in Mathematics</option>
+                  <option value="Master of Arts in Education">Master of Arts in Education</option>
+                  <option value="Bachelor of Science in Business Administration Major in Markiting Management">Bachelor of Science in Business Administration Major in Markiting Management</option>
+                  <option value="Bachelor of Science in Business Administration Major in Financial Management">Bachelor of Science in Business Administration Major in Financial Management</option>
+                  <option value="Bachelor of Science in Business Administration HRDM">Bachelor of Science in Business Administration  Major in HRDM</option>
+                  <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
                     </select>
 
                         <label for="update_stud_course">Course</label>
@@ -375,12 +383,15 @@ if (isset($_SESSION['user_id'])) {
 
 
                     <div class="form-floating mb-3">
-                        <select class="form-control" name="add_sem" id="add_sem" required>
+                        <select class="form-control" name="edit_sem" id="edit_sem" required>
                             
-                            <option value="1st">1st Semester</option>
-                            <option value="2nd">2nd Semester</option>
-                            <option value="3rd">3rd Semester</option>
-                        </select><label for="add_sem">Trimester</label>
+                            <option value="1st_s">1st Semester</option>
+                            <option value="2nd_s">2nd Semester</option>
+                            <option value="Summer">Summer</option>
+                            <option value="1st_t">1st Trimester</option>
+                            <option value="2nd_t">2nd Trimester</option>
+                            <option value="3rd_t">3rd Trimester</option>
+                        </select><label for="edit_sem">Trimester</label>
                         
                     </div>
 
@@ -410,17 +421,23 @@ if (isset($_SESSION['user_id'])) {
 
 
                     <div class="form-floating mb-3">
-                        <select class="form-control" name="stud_course" id="stud_course" required>
+                    <select class="form-control" name="update_stud_course" id="update_stud_course" required>
                   <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
                   <option value="Bachelor of Science in Information Technology">Bachelor of Science in Information Technology</option>
                   <option value="Bachelor of Science in Information System">Bachelor of Science in Information System</option>
-                  <option value="Bachelor of Science in Information Criminology">Bachelor of Science in Information Criminology</option>
-                  <option value="Bachelor of Secondary Education in English">Bachelor of Secondary Education in English</option>
+                  <option value="Bachelor of Science in Criminology">Bachelor of Science in Criminology</option>
+                  <option value="Bachelor of Secondary Education Major in English">Bachelor of Secondary Education Major in English</option>
                   <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
-                  <option value="Bachelor of Secondary Education in Social Studies">Bachelor of Secondary Education in Social Studies</option>
-                  <option value="Bachelor of Secondary Education in Mathematics">Bachelor of Secondary Education in Mathematics</option>
-                        </select>
-                        <label for="stud_course">Course</label>
+                  <option value="Bachelor of Secondary Education Major in Social Studies">Bachelor of Secondary Education Major in Social Studies</option>
+                  <option value="Bachelor of Secondary Education Major in Mathematics">Bachelor of Secondary Education Major in Mathematics</option>
+                  <option value="Master of Arts in Education">Master of Arts in Education</option>
+                  <option value="Bachelor of Science in Business Administration Major in Markiting Management">Bachelor of Science in Business Administration Major in Markiting Management</option>
+                  <option value="Bachelor of Science in Business Administration Major in Financial Management">Bachelor of Science in Business Administration Major in Financial Management</option>
+                  <option value="Bachelor of Science in Business Administration HRDM">Bachelor of Science in Business Administration  Major in HRDM</option>
+                  <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
+                    </select>
+
+                        <label for="update_stud_course">Course</label>
                     </div>
 
 
