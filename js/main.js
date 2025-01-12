@@ -1115,3 +1115,95 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+new DataTable('#myTable');
+
+
+
+
+
+function printContent() {
+  const printSection = document.getElementById('print-section');
+
+  if (!printSection) {
+      console.error('Element with id "print-section" not found.');
+      return;
+  }
+
+  // Store the current state of the page
+  const originalContent = document.body.innerHTML;
+
+  // Create and append a print-specific stylesheet
+  const printStyle = document.createElement('style');
+  printStyle.media = 'print';
+  printStyle.innerHTML = `
+      @media print {
+
+         
+
+
+          .fullname{
+              color:black !important;
+              position: relative; /* O absolute, depende sa pangangailangan */
+              top: -55px;
+          }
+
+          .occupation{
+              color:#ceaa4d !important;
+              position: relative; /* O absolute, depende sa pangangailangan */
+              top: -50px;
+          }
+
+              body {
+                  margin: 0;
+                  padding: 0;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 90vh;
+                  overflow: hidden;
+                  font-size: 30px;
+              }
+          
+          #Profile_image {
+              width: 150px; 
+              height: auto;
+              display: block;
+              margin: 0 auto;
+              border-radius: 10px;
+          }
+
+          
+      }
+  `;
+  document.head.appendChild(printStyle);
+
+  // Replace the page content with the content to print
+  document.body.innerHTML = printSection.innerHTML;
+
+  // Print the content
+  window.print();
+
+  // Restore the original page content
+  document.body.innerHTML = originalContent;
+
+  // Remove the print-specific stylesheet
+  document.head.removeChild(printStyle);
+}

@@ -67,6 +67,9 @@ if (isset($_SESSION['user_id'])) {
             <?php 
                 $get_All_student = $admin_db->get_All_student();
                 while ($student = $get_All_student->fetch_array()):
+
+                $stud_sem = $student['stud_sem'];
+                $stud_sem = str_replace('_t', ' ', $stud_sem);
             ?>
                 <tr data-school_year="<?=$student['stud_school_year']?>" data-semester="<?=$student['stud_sem']?>">
                     <td class="text-center"><?=$student['stud_id']; ?></td>
@@ -75,7 +78,7 @@ if (isset($_SESSION['user_id'])) {
                     <td><?=ucfirst($student['stud_mname']); ?></td>
                     <td><?=$student['stud_course']; ?></td>
                     <td><?=$student['stud_year_level'] ?></td>
-                    <td><?=$student['stud_sem'];?></td>
+                    <td><?=$stud_sem;?></td>
                     <td><?=$student['stud_school_year']; ?></td>
                     <td><?=$student['stud_section']; ?></td>
                     <td><?=$student['stud_academic_status']; ?></td>

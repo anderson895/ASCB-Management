@@ -473,6 +473,22 @@ ORDER BY
             return false; 
         }
     }
+
+    public function get_admin_info($admin_id)
+    {
+        // Safely escape the $admin_id to prevent SQL injection
+        $admin_id = $this->conn->real_escape_string($admin_id);
+        $query = "SELECT * FROM `user` WHERE admin_id='$admin_id'";
+        
+        // Execute the query
+        $result = $this->conn->query($query);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+    
     
 
 
