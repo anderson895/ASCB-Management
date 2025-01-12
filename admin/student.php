@@ -260,10 +260,11 @@ if (isset($_SESSION['user_id'])) {
                   <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
                   <option value="Bachelor of Secondary Education Major in Social Studies">Bachelor of Secondary Education Major in Social Studies</option>
                   <option value="Bachelor of Secondary Education Major in Mathematics">Bachelor of Secondary Education Major in Mathematics</option>
-                  <option value="Master of Arts in Education">Master of Arts in Education</option>
-                  <option value="Bachelor of Science in Business Administration Major in Markiting Management">Bachelor of Science in Business Administration Major in Markiting Management</option>
+                  <option value="Master of Arts in Education Major in Educational Management">Master of Arts in Education Major in Educational Management</option>
+                  <option value="Master of Arts in Education Major in Administration and Supervision">Master of Arts in Education Major in Administration and Supervision</option>
+                  <option value="Bachelor of Science in Business Administration Major in Marketing Management">Bachelor of Science in Business Administration Major in Marketing Management</option>
                   <option value="Bachelor of Science in Business Administration Major in Financial Management">Bachelor of Science in Business Administration Major in Financial Management</option>
-                  <option value="Bachelor of Science in Business Administration HRDM">Bachelor of Science in Business Administration  Major in HRDM</option>
+                  <option value="Bachelor of Science in Business Administration Major in Human Resource Development Management">Bachelor of Science in Business Administration Major in Human Resource Development Management</option>
                   <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
                     </select>
 
@@ -276,20 +277,6 @@ if (isset($_SESSION['user_id'])) {
                         <label for="update_stud_section">Section (USE ALL UPPERCASE)</label>
                     </div>
                  <!--end new added field --->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <div class="form-floating mb-3 text-center">
                         <button type="submit" class="btn btn-success" id="btnUpdateStudent">Update Student</button>
                         <div class="loading-spinner" id="loading-spinner" style="display:none;">
@@ -430,10 +417,11 @@ if (isset($_SESSION['user_id'])) {
                   <option value="Bachelor of Elementary Education">Bachelor of Elementary Education</option>
                   <option value="Bachelor of Secondary Education Major in Social Studies">Bachelor of Secondary Education Major in Social Studies</option>
                   <option value="Bachelor of Secondary Education Major in Mathematics">Bachelor of Secondary Education Major in Mathematics</option>
-                  <option value="Master of Arts in Education">Master of Arts in Education</option>
-                  <option value="Bachelor of Science in Business Administration Major in Markiting Management">Bachelor of Science in Business Administration Major in Markiting Management</option>
+                  <option value="Master of Arts in Education Major in Educational Management">Master of Arts in Education Major in Educational Management</option>
+                  <option value="Master of Arts in Education Major in Administration and Supervision">Master of Arts in Education Major in Administration and Supervision</option>
+                  <option value="Bachelor of Science in Business Administration Major in Marketing Management">Bachelor of Science in Business Administration Major in Marketing Management</option>
                   <option value="Bachelor of Science in Business Administration Major in Financial Management">Bachelor of Science in Business Administration Major in Financial Management</option>
-                  <option value="Bachelor of Science in Business Administration HRDM">Bachelor of Science in Business Administration  Major in HRDM</option>
+                  <option value="Bachelor of Science in Business Administration Major in Human Resource Development Management">Bachelor of Science in Business Administration Major in Human Resource Development Management</option>
                   <option value="Bachelor of Science in Accountancy">Bachelor of Science in Accountancy</option>
                     </select>
 

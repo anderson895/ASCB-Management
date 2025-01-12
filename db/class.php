@@ -8,6 +8,19 @@ class global_class extends db_connect
         $this->connect();
     }
 
+     // Function to check if a stud_id exists in the database
+     public function get_All_TotalStudent_per_department($dept_id) {
+        $sql = "SELECT COUNT(ss.ss_stud_id) AS total_students
+                FROM student_subject ss 
+                JOIN subject s ON ss.ss_subject_id = s.subject_id
+                WHERE s.sub_dept_id = '$dept_id'";
+        
+        $result = $this->conn->query($sql);
+        $row = $result->fetch_assoc();
+        
+        return $row['total_students']; // Return true if total_students is greater than 0
+    }
+    
 
 
      // Function to check if a stud_id exists in the database

@@ -44,6 +44,7 @@ if (isset($_SESSION['user_id'])) {
                 <th>ID</th>
                 <th>DEPARTMENT</th>
                 <th>DESCRIPTION</th>
+                <th><div class="d-flex justify-content-center">Total Student</div></th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -55,6 +56,7 @@ if (isset($_SESSION['user_id'])) {
                     <td><?=$department['dept_id']; ?></td>
                     <td><?=$department['dept_name']; ?></td>
                     <td><?=$department['dept_description']; ?></td>
+                    <td ><div class="d-flex justify-content-center"><?= $admin_db->get_All_TotalStudent_per_department($department['dept_id']) ?></div></td>
                     <td>
                         <div id="delLoad-<?=$department['dept_id']?>">
                             <!-- Update Button -->
