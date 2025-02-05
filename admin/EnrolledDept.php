@@ -81,6 +81,14 @@ $get_department = $admin_db->view_department($dept_id);
             ?>
         </tbody>
     </table>
+
+        <?php 
+        $total_students = $get_All_student->num_rows;
+    ?>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>Total Students: <span class="badge bg-primary"><?=$total_students?></span></h4>
+    </div>
+
 </div>
 
 
