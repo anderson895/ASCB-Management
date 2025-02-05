@@ -19,6 +19,16 @@ $(document).on('click', '.TogglerViewDepartment', function() {
 });
 
 
+
+
+$(document).on('click', '.TogglerListEnrolledDepartment', function() {
+
+  var deptId = $(this).data('dept_id');
+  var url = 'EnrolledDept.php?dept_id=' + deptId;
+  window.location.href = url;
+});
+
+
 $(document).on('click', '.togglerAddSubjectForStudent', function (e) {
   e.preventDefault();
   

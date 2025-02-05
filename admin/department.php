@@ -72,11 +72,20 @@ if (isset($_SESSION['user_id'])) {
                             <i class="fa fa-eye"></i>
                             </button>
 
+
+                            
+                            <button type="button" class="btn btn-secondary TogglerListEnrolledDepartment" 
+                            data-dept_id="<?=$department['dept_id']?>">
+                            <i class="fa fa-users"></i>
+                            </button>
+
                             <!-- Delete Button -->
                             <button type="button" class="btn btn-danger TogglerDeleteDepartment" 
                             data-dept_id="<?=$department['dept_id']?>">
                             <i class="fa fa-trash"></i>
                             </button>
+
+
 
                             
                         </div>

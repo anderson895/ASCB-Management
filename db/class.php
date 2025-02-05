@@ -182,6 +182,30 @@ public function generateUniqueStudID() {
     }
 
 
+
+    public function get_All_studentBasedOnDepartmentGroupBy($dept_id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM `student_subject` as ss
+            LEFT JOIN subject as sub
+            ON sub.subject_id = ss.ss_subject_id
+            LEFT JOIN department as dept
+            ON dept.dept_id = sub.sub_dept_id
+            LEFT JOIN student as stud
+            ON stud.stud_id = ss.ss_stud_id
+            WHERE dept.dept_id = ? AND stud.stud_status = '1'
+            group by ss.ss_stud_id
+            ");
+        
+        $query->bind_param("i", $dept_id); // Binding parameter to prevent SQL injection
+
+        if ($query->execute()) {
+            $result = $query->get_result();
+            return $result;
+        }
+    }
+
+
+
     public function get_All_studentBasedSubject($subject_id)
     {
         $query = $this->conn->prepare("
