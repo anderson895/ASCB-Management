@@ -406,7 +406,8 @@ $('#frmEditSubject').on('submit', function(e) {
 });
 
 // frmAddStudentgrade
-$('#frmAddStudentgrade').on('submit', function(e) {
+// $('#frmAddStudentgrade').on('submit', function(e) {
+  $('#frmAddStudentgrade').off('submit').on('submit', function(e) {
   e.preventDefault();
 
   var stud_id =$("#stud_id").val()
@@ -613,7 +614,8 @@ $('#frmEditAdmin').on('submit', function(e) {
 
 
   //FOR START ADD USER
-  $('#frmAddAdmin').on('submit', function(e) {
+  // $('#frmAddAdmin').on('submit', function(e) {
+    $('#frmAddAdmin').off('submit').on('submit', function(e) {
     e.preventDefault();
 
     var formData = new FormData(this); // Create FormData object from form
@@ -715,7 +717,8 @@ $('#frmEditAdmin').on('submit', function(e) {
   //FOR END EDIT Department
 
    //FOR START ADD Department
-   $('#frmAddDepartment').on('submit', function(e) {
+  //  $('#frmAddDepartment').on('submit', function(e) {
+    $('#frmAddDepartment').off('submit').on('submit', function(e) {
     e.preventDefault();
 
     var dept_name = $('#add_dept_name').val();
