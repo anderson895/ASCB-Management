@@ -95,7 +95,8 @@ $('#frmDepartmentData').on('submit', function(e) {
 
 
    //FOR START ADD STUDENT
-   $('#frmAddStudent').on('submit', function(e) {
+  //  $('#frmAddStudent').on('submit', function(e) {
+    $('#frmAddStudent').off('submit').on('submit', function(e) {
     e.preventDefault();
 
     var formData = new FormData(this); // Create FormData object from form
