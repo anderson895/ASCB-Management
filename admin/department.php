@@ -212,6 +212,9 @@ include('../components/admin-footer.php');
 <!-- Update student Modal -->
  
 <script>
+
+
+
     $(document).ready(function() {
         $('#add_stud_subject').select2({
             placeholder: 'Select a subject',

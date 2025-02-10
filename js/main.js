@@ -1,6 +1,7 @@
 
 $(document).ready(function() {
 
+  new DataTable('#myTable');
 
 $(document).on('click', '.TogglerViewSubject', function() {
     var subId = $(this).data('subject_id');
@@ -60,7 +61,8 @@ $('#frmDepartmentData').on('submit', function(e) {
 
 
   //FOR START ADD SUBJECT
-  $('#frmAddStudentSubject').on('submit', function(e) {
+  // $('#frmAddStudentSubject').on('submit', function(e) {
+    $('#frmAddStudentSubject').off('submit').on('submit', function(e) {
     e.preventDefault();
     $('#btnAddStudentSubject').prop('disabled', true);
 
@@ -760,8 +762,11 @@ $('#frmEditAdmin').on('submit', function(e) {
 
 
   //FOR START ADD SUBJECT
-  $('#frmAddSubject').on('submit', function(e) {
+  $('#frmAddSubject').off('submit').on('submit', function(e) {
     e.preventDefault();
+
+
+    console.log('one click');
 
     var course_code = $('#add_course_code').val();
 
@@ -802,7 +807,6 @@ $('#frmEditAdmin').on('submit', function(e) {
               // Hide spinner after the redirection
               $('.loading-spinner').hide();
               document.getElementById('btnAddSubject').disabled = false;
-
               
                 window.location.href = '../admin/subject.php';
               
@@ -1143,7 +1147,6 @@ $(document).ready(function() {
 
 
 
-new DataTable('#myTable');
 
 
 
