@@ -428,8 +428,6 @@
 
 
 
-
-
 <script src="../node_modules/alertifyjs/build/alertify.min.js"></script>
 
 
@@ -442,6 +440,13 @@
 
 
 <script src="../js/main.js"></script>
+
+<script>      
+$(document).ready(function() {
+    
+new DataTable('#myTable');
+});
+    </script>
 
 <script src="../js/bootstrap.bundle.min.js"></script>
 <script src="../js/dataTables.js"></script>

@@ -1,7 +1,7 @@
 
 $(document).ready(function() {
 
-  new DataTable('#myTable');
+  // new DataTable('#myTable');
 
 $(document).on('click', '.TogglerViewSubject', function() {
     var subId = $(this).data('subject_id');
@@ -146,6 +146,7 @@ $('#frmDepartmentData').on('submit', function(e) {
   $('#loginForm').on('submit', function(e) {
       e.preventDefault(); // Prevent the form from submitting the default way
 
+      console.log('test');
       var username = $('#username').val();
       var password = $('#password-field').val();
 
