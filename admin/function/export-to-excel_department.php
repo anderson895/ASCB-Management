@@ -12,7 +12,7 @@ $admin_db = new global_class();
 
 if (isset($_POST['dept_id'])) {
     $dept_id = $_POST['dept_id'];
-    $students = $admin_db->get_All_studentBasedOnDepartment_exportExcel($dept_id);
+    $students = $admin_db->get_All_studentBasedOnDepartmentGroupBy_exportExcel($dept_id);
 
     // Initialize Spreadsheet
     $spreadsheet = new Spreadsheet();
