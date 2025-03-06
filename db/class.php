@@ -12,8 +12,9 @@ class global_class extends db_connect
      public function get_All_TotalStudent_per_department($dept_id) {
         $sql = "SELECT COUNT(ss.ss_stud_id) AS total_students
                 FROM student_subject ss 
+                LEFT JOIN student ON student.stud_id = ss.ss_stud_id 
                 JOIN subject s ON ss.ss_subject_id = s.subject_id
-                WHERE s.sub_dept_id = '$dept_id'";
+                WHERE s.sub_dept_id = '$dept_id' AND student.stud_status='1'";
         
         $result = $this->conn->query($sql);
         $row = $result->fetch_assoc();
