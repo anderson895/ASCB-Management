@@ -223,18 +223,23 @@ public function generateUniqueStudID() {
     public function get_All_studentBasedOnDepartmentGroupBy_exportExcel($dept_id)
     {
         $query = $this->conn->prepare("
-            SELECT 
+           SELECT 
                 stud.stud_course,
                 stud.stud_year_level,
-                SUM(CASE WHEN stud.stud_gender = 'Male' THEN 1 ELSE 0 END) AS male_count,
-                SUM(CASE WHEN stud.stud_gender = 'Female' THEN 1 ELSE 0 END) AS female_count
+                COUNT(DISTINCT CASE WHEN stud.stud_gender = 'Male' THEN stud.stud_id END) AS male_count,
+                COUNT(DISTINCT CASE WHEN stud.stud_gender = 'Female' THEN stud.stud_id END) AS female_count,
+                GROUP_CONCAT(DISTINCT stud.stud_fname ORDER BY stud.stud_fname SEPARATOR ', ') AS student_names
             FROM student_subject AS ss
             LEFT JOIN subject AS sub ON sub.subject_id = ss.ss_subject_id
             LEFT JOIN department AS dept ON dept.dept_id = sub.sub_dept_id
             LEFT JOIN student AS stud ON stud.stud_id = ss.ss_stud_id
-            WHERE dept.dept_id = ? AND stud.stud_status = '1'
-            GROUP BY stud.stud_course, stud.stud_year_level,ss.ss_stud_id
-            ORDER BY stud.stud_course, stud.stud_year_level
+            WHERE dept.dept_id = ? 
+            AND stud.stud_status = '1'
+            GROUP BY stud.stud_course, stud.stud_year_level
+            ORDER BY stud.stud_course, stud.stud_year_level;
+
+
+
         ");
         
         $query->bind_param("i", $dept_id);

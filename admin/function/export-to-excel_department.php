@@ -19,10 +19,10 @@ if (isset($_POST['dept_id'])) {
     $sheet = $spreadsheet->getActiveSheet();
 
     // Title & Header Styling
-    $sheet->mergeCells('B2:F2');
-    $sheet->mergeCells('B3:F3');
-    $sheet->mergeCells('B5:F5');
-    $sheet->mergeCells('B6:F6');
+    $sheet->mergeCells('B2:E2');
+    $sheet->mergeCells('B3:E3');
+    $sheet->mergeCells('B5:E5');
+    $sheet->mergeCells('B6:E6');
 
     $sheet->setCellValue('B2', 'ANDRES SORIANO COLLEGES OF BISLIG')
           ->setCellValue('B3', 'Mangagoy, Bislig City')
@@ -36,7 +36,8 @@ if (isset($_POST['dept_id'])) {
     $sheet->getStyle('B2:B6')->applyFromArray($titleStyle);
 
     // Table Headers
-    $sheet->setCellValue('C8', 'YEAR LEVEL')
+    $sheet->setCellValue('B8', 'COURSE')
+          ->setCellValue('C8', 'YEAR LEVEL')
           ->setCellValue('D8', 'MALE')
           ->setCellValue('E8', 'FEMALE')
           ->setCellValue('F8', 'TOTAL');
@@ -46,15 +47,20 @@ if (isset($_POST['dept_id'])) {
         'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
         'borders' => ['bottom' => ['borderStyle' => Border::BORDER_THIN]]
     ];
-    $sheet->getStyle('C8:F8')->applyFromArray($headerStyle);
+    $sheet->getStyle('B8:F8')->applyFromArray($headerStyle);
 
     // Start Data Insertion
     $row = 9;
     $current_course = '';
     $subtotal_male = 0;
     $subtotal_female = 0;
+    $total_male = 0;
+    $total_female = 0;
+    $has_data = false;
 
     while ($student = $students->fetch_assoc()) {
+        $has_data = true;
+
         if ($current_course !== $student['stud_course']) {
             // Print Subtotal Row for Previous Course
             if ($current_course !== '') {
@@ -82,19 +88,34 @@ if (isset($_POST['dept_id'])) {
               ->setCellValue("E$row", $student['female_count'])
               ->setCellValue("F$row", $student['male_count'] + $student['female_count']);
 
-        // Add to Subtotal
+        // Add to Subtotal & Total
         $subtotal_male += $student['male_count'];
         $subtotal_female += $student['female_count'];
+        $total_male += $student['male_count'];
+        $total_female += $student['female_count'];
 
         $row++;
     }
 
-    // Print Final Subtotal
+    // Print Final Subtotal for Last Course
     if ($current_course !== '') {
         $sheet->setCellValue("C$row", 'Sub-Total')
               ->setCellValue("D$row", $subtotal_male)
               ->setCellValue("E$row", $subtotal_female)
               ->setCellValue("F$row", $subtotal_male + $subtotal_female);
+        $row++;
+    }
+
+    // Print Overall Total (only if there is data)
+    if ($has_data) {
+        $sheet->setCellValue("C$row", 'TOTAL')
+              ->setCellValue("D$row", $total_male)
+              ->setCellValue("E$row", $total_female)
+              ->setCellValue("F$row", $total_male + $total_female);
+        $sheet->getStyle("C$row:F$row")->applyFromArray([
+            'font' => ['bold' => true],
+            'borders' => ['top' => ['borderStyle' => Border::BORDER_THIN]]
+        ]);
     }
 
     // Auto-size Columns
@@ -113,3 +134,4 @@ if (isset($_POST['dept_id'])) {
 } else {
     echo "No department selected.";
 }
+?>
