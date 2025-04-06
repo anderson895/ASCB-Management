@@ -353,6 +353,31 @@ public function generateUniqueStudID() {
 
 
 
+    public function view_student_grade_per_department($dept_id)
+    {
+        $query = $this->conn->prepare("
+            SELECT * 
+            FROM `department` AS dept
+            LEFT JOIN `subject` AS sub ON dept.dept_id = sub.sub_dept_id
+            LEFT JOIN `student_subject` AS ss ON sub.subject_id = ss.ss_subject_id
+            LEFT JOIN `student` AS stud ON stud.stud_id = ss.ss_stud_id 
+            WHERE dept.dept_status = '1' AND dept.dept_id = ? AND stud.stud_status='1'
+        ");
+        
+        if ($query) {
+            $query->bind_param("i", $dept_id);
+            if ($query->execute()) {
+                $result = $query->get_result();
+                return $result;
+            }
+        }
+    
+        return false; 
+    }
+    
+
+
+
 
 
     public function get_All_user()

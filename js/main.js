@@ -30,6 +30,15 @@ $(document).on('click', '.TogglerListEnrolledDepartment', function() {
 });
 
 
+
+
+$(document).on('click', '.TogglerViewStudentDeptGrade', function() {
+  var deptId = $(this).data('dept_id');
+  var url = 'ViewStudentDeptGrade.php?dept_id=' + deptId;
+  window.location.href = url;
+});
+
+
 $(document).on('click', '.togglerAddSubjectForStudent', function (e) {
   e.preventDefault();
   
