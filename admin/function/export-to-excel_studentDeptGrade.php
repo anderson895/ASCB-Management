@@ -1,22 +1,16 @@
 <?php
-require '../../vendor/autoload.php'; // PhpSpreadsheet library
+require '../../vendor/autoload.php';
 include('../../db/class.php');
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use PhpOffice\PhpSpreadsheet\Style\Border;
-use PhpOffice\PhpSpreadsheet\Style\Font;
 
 $admin_db = new global_class();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dept_id = $_POST['dept_id'];
-
-    header("Content-Type: application/vnd.ms-excel");
-    header("Content-Disposition: attachment; filename=student_department_grades.xls");
-    header("Pragma: no-cache");
-    header("Expires: 0");
 
     $student_grade = $admin_db->view_student_grade_per_department($dept_id);
 
@@ -40,46 +34,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
     }
 
-    echo "<table border='1'>";
-    echo "<tr>
-            <th>No</th>
-            <th>Student Number</th>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Date of Birth</th>
-            <th>Gender</th>
-            <th>Home Address</th>
-            <th>Year</th>
-            <th>Course Code</th>
-            <th>Course Description</th>
-            <th>Grades</th>
-            <th>Units</th>
-          </tr>";
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setTitle('Student Grades');
 
+    // Table headers
+    $headers = [
+        'No', 'Student Number', 'Last Name', 'First Name', 'Middle Name',
+        'Date of Birth', 'Gender', 'Home Address', 'Year',
+        'Course Code', 'Course Description', 'Grades', 'Units'
+    ];
+
+    $sheet->fromArray($headers, NULL, 'A1');
+
+    // Styling: Header
+    $sheet->getStyle('A1:M1')->applyFromArray([
+        'font' => ['bold' => true],
+        'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+        'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
+    ]);
+
+    $rowIndex = 2;
     $count = 1;
+
     foreach ($students as $stud_id => $student) {
-        foreach ($student['subjects'] as $subject) {
-            echo "<tr>";
-            echo "<td>{$count}</td>";
-            echo "<td>{$student['info']['stud_id']}</td>";
-            echo "<td>{$student['info']['stud_lname']}</td>";
-            echo "<td>{$student['info']['stud_fname']}</td>";
-            echo "<td>{$student['info']['stud_mname']}</td>";
-            echo "<td>{$student['info']['stud_bday']}</td>";
-            echo "<td>{$student['info']['stud_gender']}</td>";
-            echo "<td>{$student['info']['stud_address']}</td>";
-            echo "<td>{$student['info']['stud_year_level']}</td>";
-            echo "<td>{$subject['course_code']}</td>";
-            echo "<td>{$subject['descriptive_title']}</td>";
-            echo "<td>{$subject['ss_final_grade']}</td>";
-            echo "<td>{$subject['units']}</td>";
-            echo "</tr>";
+        $subjectCount = count($student['subjects']);
+        $first = true;
+        foreach ($student['subjects'] as $i => $subject) {
+            // Merge only once for each student row group
+            if ($first) {
+                $mergeEnd = $rowIndex + $subjectCount - 1;
+
+                $sheet->setCellValue("A{$rowIndex}", $count);
+                $sheet->mergeCells("A{$rowIndex}:A{$mergeEnd}");
+
+                $sheet->setCellValue("B{$rowIndex}", $student['info']['stud_id']);
+                $sheet->mergeCells("B{$rowIndex}:B{$mergeEnd}");
+
+                $sheet->setCellValue("C{$rowIndex}", $student['info']['stud_lname']);
+                $sheet->mergeCells("C{$rowIndex}:C{$mergeEnd}");
+
+                $sheet->setCellValue("D{$rowIndex}", $student['info']['stud_fname']);
+                $sheet->mergeCells("D{$rowIndex}:D{$mergeEnd}");
+
+                $sheet->setCellValue("E{$rowIndex}", $student['info']['stud_mname']);
+                $sheet->mergeCells("E{$rowIndex}:E{$mergeEnd}");
+
+                $sheet->setCellValue("F{$rowIndex}", $student['info']['stud_bday']);
+                $sheet->mergeCells("F{$rowIndex}:F{$mergeEnd}");
+
+                $sheet->setCellValue("G{$rowIndex}", $student['info']['stud_gender']);
+                $sheet->mergeCells("G{$rowIndex}:G{$mergeEnd}");
+
+                $sheet->setCellValue("H{$rowIndex}", $student['info']['stud_address']);
+                $sheet->mergeCells("H{$rowIndex}:H{$mergeEnd}");
+
+                $sheet->setCellValue("I{$rowIndex}", $student['info']['stud_year_level']);
+                $sheet->mergeCells("I{$rowIndex}:I{$mergeEnd}");
+
+                $first = false;
+            }
+
+            // Subject-specific data
+            $sheet->setCellValue("J{$rowIndex}", $subject['course_code']);
+            $sheet->setCellValue("K{$rowIndex}", $subject['descriptive_title']);
+            $sheet->setCellValue("L{$rowIndex}", $subject['ss_final_grade']);
+            $sheet->setCellValue("M{$rowIndex}", $subject['units']);
+
+            // Apply border to the whole row
+            $sheet->getStyle("A{$rowIndex}:M{$rowIndex}")->applyFromArray([
+                'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
+                'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
+            ]);
+
+            $rowIndex++;
         }
         $count++;
     }
 
-    echo "</table>";
+    // Auto size columns
+    foreach (range('A', 'M') as $columnID) {
+        $sheet->getColumnDimension($columnID)->setAutoSize(true);
+    }
+
+    // Output Excel
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment; filename="student_department_grades.xlsx"');
+    header('Cache-Control: max-age=0');
+
+    $writer = new Xlsx($spreadsheet);
+    $writer->save('php://output');
     exit();
 }
 ?>
