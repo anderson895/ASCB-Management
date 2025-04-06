@@ -34,6 +34,7 @@ $stud_id=$_GET['stud_id'];
 
 
   $stud_sy=$student['stud_school_year'];
+  $stud_gender=$student['stud_gender'];
   
   $stud_sem = $student['stud_sem'];
   $stud_sem = str_replace('_t', ' trimester', $stud_sem);
@@ -70,8 +71,6 @@ $stud_id=$_GET['stud_id'];
                             </div>
 </nav>
 
-
-
 <section class="bg-light">
   <div class="container resume-container">
     <div class="row">
@@ -79,99 +78,111 @@ $stud_id=$_GET['stud_id'];
         <div class="card card-style1 border-0">
           <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
             <div class="container mt-5" id="print-section">
-              <div class="container mt-5">
-                <div class="row mb-4">
-                  <div class="col-12 text-center"></div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-md-6">
-                    <p>
-                      <strong>Student Name:</strong> <?= ucfirst($fullname) ?>
-                    </p>
-                    <p>
-                      <strong>School Year:</strong> <?= ucfirst($stud_sy) ?>
-                    </p>
-                    <p>
-                      <strong>Program:</strong> <?=$stud_course?>
-                    </p>
-                  </div>
-                  <div class="col-md-6">
-                    <p>
-                      <strong>ID No.:</strong> <?= $stud_id ?>
-                    </p>
-                    <p>
-                      <strong>Year Level:</strong> <?=$stud_year_level?>
-                    </p>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-12">
-                    <h5> <?=$stud_sem?> </h5>
-                    <table class="table table-bordered">
-                      <thead class="table-light">
-                        <tr>
-                          <th scope="col">Course No.</th>
-                          <th scope="col">Course Title</th>
-                          <th scope="col">Final</th>
-                          <th scope="col">Units</th>
-                        </tr>
-                      </thead>
-                      <tbody> <?php 
-                                                                                            $get_subject = $admin_db->getAllSubjectsForSpecificStudent($stud_id);
-                                                                                            $total_weighted_grade = 0;
-                                                                                            $total_units = 0;
 
-                                                                                            while ($subject = $get_subject->fetch_array()):
-                                                                                                if($subject['ss_final_grade']<=0){
-                                                                                                    $grade="NO GRADE";
-                                                                                                }else if($subject['ss_final_grade']>0 && $subject['ss_final_grade'] <= 3 ){
-                                                                                                    $grade="PASSED";
-                                                                                                }else if($subject['ss_final_grade']>0 && $subject['ss_final_grade'] >3 ){
-                                                                                                    $grade="FAILED";
-                                                                                                }
-
-                                                                                                // Calculate total weighted grades and units
-                                                                                                if($subject['ss_final_grade'] > 0 && $subject['ss_final_grade'] <= 5) {
-                                                                                                    $total_weighted_grade += $subject['ss_final_grade'] * $subject['units'];
-                                                                                                    $total_units += $subject['units'];
-                                                                                                }
-                                                                                            ?> <tr>
-                          <td> <?=$subject['course_code']; ?> </td>
-                          <td> <?=$subject['descriptive_title']; ?> </td>
-                          <td> <?=$subject['ss_final_grade']; ?> </td>
-                          <td> <?=$subject['units']; ?> </td>
-                        </tr> <?php endwhile; ?> </tbody>
-                    </table>
-                    <p>
-                      <strong>GWA:</strong> <?php 
-                                                                                    // Compute GWA
-                                                                                    if ($total_units > 0) {
-                                                                                        $gwa = $total_weighted_grade / $total_units;
-                                                                                        echo number_format($gwa, 2);
-                                                                                    } else {
-                                                                                        echo "N/A";
-                                                                                    }
-                                                                                ?>
-                    </p>
+              <!-- HEADER START -->
+              <div class="container text-center mb-4 border-bottom pb-3">
+                <div class="row align-items-center">
+                  <div class="col-md-2">
+                    <img src="../assets/images/ascob_logo.jpg" alt="Andres Soriano Colleges of Bislig Logo" width="100">
                   </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col-12 text-center">
-                    <p>Certified true and correct:</p>
-                    <p>
-                      <strong>REBECCA P. CAPONONG, MA</strong>
-                    </p>
-                    <p>Registrar</p>
+                  <div class="col-md-10">
+                    <h4 class="mb-0 fw-bold">Andres Soriano Colleges of Bislig</h4>
+                    <p class="mb-1">Andres Soriano Avenue, Mangagoy, Bislig City, Surigao del Sur</p>
+                    <h5 class="mt-2 fw-bold text-uppercase">Certificate of Registration</h5>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+
+              <!-- STUDENT DETAILS -->
+              <div class="container mt-3">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <p><strong>Student Name:</strong> <u><?= strtoupper($fullname) ?></u></p>
+                    <p><strong>Course:</strong> <u><?= $stud_course ?></u></p>
+                    <p><strong>Year:</strong> <u><?= $stud_year_level ?></u></p>
+                    <p><strong>Gender:</strong> <u><?= ucfirst($stud_gender) ?></u></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p><strong>Semester:</strong> <u><?= $stud_sem ?></u></p>
+                    <p><strong>School Year:</strong> <u><?= strtoupper($stud_sy) ?></u></p>
+                  </div>
+                </div>
+              </div>
+              <!-- HEADER END -->
+
+              <!-- SUBJECT LIST -->
+              <div class="row mb-3">
+                <div class="col-12">
+                  <table class="table table-bordered">
+                    <thead class="table-light">
+                      <tr>
+                        <th scope="col">Course No.</th>
+                        <th scope="col">Course Title</th>
+                        <th scope="col">Final</th>
+                        <th scope="col">Units</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        $get_subject = $admin_db->getAllSubjectsForSpecificStudent($stud_id);
+                        $total_weighted_grade = 0;
+                        $total_units = 0;
+
+                        while ($subject = $get_subject->fetch_array()):
+                          if ($subject['ss_final_grade'] <= 0) {
+                            $grade = "NO GRADE";
+                          } else if ($subject['ss_final_grade'] > 0 && $subject['ss_final_grade'] <= 3) {
+                            $grade = "PASSED";
+                          } else {
+                            $grade = "FAILED";
+                          }
+
+                          if ($subject['ss_final_grade'] > 0 && $subject['ss_final_grade'] <= 5) {
+                            $total_weighted_grade += $subject['ss_final_grade'] * $subject['units'];
+                            $total_units += $subject['units'];
+                          }
+                      ?>
+                      <tr>
+                        <td><?= $subject['course_code']; ?></td>
+                        <td><?= $subject['descriptive_title']; ?></td>
+                        <td><?= $subject['ss_final_grade']; ?></td>
+                        <td><?= $subject['units']; ?></td>
+                      </tr>
+                      <?php endwhile; ?>
+                    </tbody>
+                  </table>
+
+                  <p><strong>GWA:</strong> 
+                    <?php 
+                      if ($total_units > 0) {
+                        $gwa = $total_weighted_grade / $total_units;
+                        echo number_format($gwa, 2);
+                      } else {
+                        echo "N/A";
+                      }
+                    ?>
+                  </p>
+                </div>
+              </div>
+
+              <!-- CERTIFICATION FOOTER -->
+              <div class="row mt-4">
+                <div class="col-12 text-center">
+                  <p>Certified true and correct:</p>
+                  <p><strong>REBECCA P. CAPONONG, MA</strong></p>
+                  <p>Registrar</p>
+                </div>
+              </div>
+
+            </div> <!-- /print-section -->
+          </div> <!-- /card-body -->
+        </div> <!-- /card -->
       </div>
     </div>
   </div>
 </section>
+
+
 
 
 
