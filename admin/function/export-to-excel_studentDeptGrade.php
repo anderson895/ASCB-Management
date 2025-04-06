@@ -12,6 +12,11 @@ $admin_db = new global_class();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dept_id = $_POST['dept_id'];
 
+    $get_department = $admin_db->view_department($dept_id);
+    $view_department = $get_department->fetch_array();
+    $dept_name = $view_department['dept_name'];
+    $dept_description = $view_department['dept_description'];
+
     $student_grade = $admin_db->view_student_grade_per_department($dept_id);
 
     $students = [];
@@ -38,30 +43,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sheet = $spreadsheet->getActiveSheet();
     $sheet->setTitle('Student Grades');
 
-    // Table headers
+    // Title at the top
+    $sheet->setCellValue('A1', 'Promotional Report');
+    $sheet->mergeCells('A1:M1');
+    $sheet->getStyle('A1')->applyFromArray([
+        'font' => ['bold' => true, 'size' => 14],
+        'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
+    ]);
+
+    // Department Name
+    $sheet->setCellValue('A2', "Department: $dept_name");
+    $sheet->mergeCells('A2:M2');
+    $sheet->getStyle('A2')->applyFromArray([
+        'font' => ['bold' => true, 'size' => 12],
+        'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT],
+    ]);
+
+    // Department Description
+    $sheet->setCellValue('A3', "Description: $dept_description");
+    $sheet->mergeCells('A3:M3');
+    $sheet->getStyle('A3')->applyFromArray([
+        'font' => ['italic' => true, 'size' => 11],
+        'alignment' => ['horizontal' => Alignment::HORIZONTAL_LEFT],
+    ]);
+
+    // Leave Row 4 blank for spacing, Headers on Row 5
     $headers = [
         'No', 'Student Number', 'Last Name', 'First Name', 'Middle Name',
         'Date of Birth', 'Gender', 'Home Address', 'Year',
         'Course Code', 'Course Description', 'Grades', 'Units'
     ];
 
-    $sheet->fromArray($headers, NULL, 'A1');
+    $sheet->fromArray($headers, NULL, 'A5');
 
-    // Styling: Header
-    $sheet->getStyle('A1:M1')->applyFromArray([
+    // Styling for header row
+    $sheet->getStyle('A5:M5')->applyFromArray([
         'font' => ['bold' => true],
         'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
         'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
     ]);
 
-    $rowIndex = 2;
+    $rowIndex = 6; // Data starts at row 6
     $count = 1;
 
     foreach ($students as $stud_id => $student) {
         $subjectCount = count($student['subjects']);
         $first = true;
         foreach ($student['subjects'] as $i => $subject) {
-            // Merge only once for each student row group
             if ($first) {
                 $mergeEnd = $rowIndex + $subjectCount - 1;
 
@@ -95,13 +123,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $first = false;
             }
 
-            // Subject-specific data
             $sheet->setCellValue("J{$rowIndex}", $subject['course_code']);
             $sheet->setCellValue("K{$rowIndex}", $subject['descriptive_title']);
             $sheet->setCellValue("L{$rowIndex}", $subject['ss_final_grade']);
             $sheet->setCellValue("M{$rowIndex}", $subject['units']);
 
-            // Apply border to the whole row
+            // Apply border to row
             $sheet->getStyle("A{$rowIndex}:M{$rowIndex}")->applyFromArray([
                 'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN]],
                 'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
@@ -112,12 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $count++;
     }
 
-    // Auto size columns
+    // Auto-size all columns
     foreach (range('A', 'M') as $columnID) {
         $sheet->getColumnDimension($columnID)->setAutoSize(true);
     }
 
-    // Output Excel
+    // Output the Excel file
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment; filename="student_department_grades.xlsx"');
     header('Cache-Control: max-age=0');
