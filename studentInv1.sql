@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2025 at 05:30 AM
+-- Generation Time: Apr 21, 2025 at 07:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -642,7 +642,7 @@ INSERT INTO `student_subject` (`ss_id`, `ss_stud_id`, `ss_subject_id`, `ss_final
 (217, 2022003183, 395, 0.00),
 (218, 2022003183, 396, 0.00),
 (219, 2022003183, 397, 0.00),
-(220, 2022003183, 398, 0.00),
+(220, 2022003183, 398, 1.00),
 (221, 2022003183, 399, 0.00),
 (222, 2024110159, 285, 0.00),
 (223, 2024110159, 283, 0.00),
@@ -3735,7 +3735,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`admin_id`, `fname`, `mname`, `lname`, `email`, `username`, `password`, `type`, `profile_img`, `status`) VALUES
-(1, 'Joshua Anderson', 'raymundo', 'Padilla', 'andersonandy046@gmail.com', 'admin', '$2y$10$JBj5w7egG82WPXwSjZrJROlMs7bSuXJBMh/qQ.S1dfEIkM3XmBhTC', 'super_admin', 'profile_66e03e8de1c266.83250222.jpg', 1),
+(1, 'Joshua Anderson', 'raymundo', 'Padilla', 'andersonandy046@gmail.com', 'admin', '$2y$10$19QNj5dVARZhBcLJelDO4OOZlfGniYDeCq9LxYrAGRIu8C6FSHYTS', 'super_admin', 'profile_67f1ec63ecd2e5.62681939.jpg', 1),
 (24, 'andy', '', 'anderson', 'andyanderson895@yahoo.com', 'andyanderson895', '$2y$10$coNIitr1ogZfvjC0pZ4Sv.J8fz7q3P3Pzi07064MYnDgoRv7zh8MK', 'admin', 'profile_66d4a8ddcd5f89.27748458.jpg', 0),
 (25, 'Mark', '', 'Espadera', 'gab@gmail.com', 'callmegab', '$2y$10$hYaB7MmcE4RYVQM9IaA3iOQE30lYpWC6njTXtKq2ktk6HnRioIbcC', 'super_admin', 'profile_66e19f52940eb8.36184867.jpeg', 1),
 (26, 'JOSELITO', 'GERALCAS', 'BONTIA', 'litobontia@gmail.com', 'SIRLITZ', '$2y$10$dcDO3hO78is69mOBPKFNWedSPqli2nu93GYO5uOq68ukzm3WxP/lu', 'super_admin', 'profile_671750b0d27589.91469429.jpg', 1),
