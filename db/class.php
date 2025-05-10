@@ -354,28 +354,57 @@ public function generateUniqueStudID() {
 
 
     public function view_student_grade_per_department($dept_id)
-{
-    $query = $this->conn->prepare("
-        SELECT * 
-        FROM `department` AS dept
-        LEFT JOIN `subject` AS sub ON dept.dept_id = sub.sub_dept_id
-        LEFT JOIN `student_subject` AS ss ON sub.subject_id = ss.ss_subject_id
-        LEFT JOIN `student` AS stud ON stud.stud_id = ss.ss_stud_id 
-        WHERE dept.dept_status = '1' AND dept.dept_id = ? AND stud.stud_status = '1'
-        ORDER BY stud.stud_lname ASC
-    ");
-    
-    if ($query) {
-        $query->bind_param("i", $dept_id);
-        if ($query->execute()) {
-            $result = $query->get_result();
-            return $result;
+    {
+        $query = $this->conn->prepare("
+            SELECT * 
+            FROM `department` AS dept
+            LEFT JOIN `subject` AS sub ON dept.dept_id = sub.sub_dept_id
+            LEFT JOIN `student_subject` AS ss ON sub.subject_id = ss.ss_subject_id
+            LEFT JOIN `student` AS stud ON stud.stud_id = ss.ss_stud_id 
+            WHERE dept.dept_status = '1' AND dept.dept_id = ? AND stud.stud_status = '1'
+            ORDER BY stud.stud_lname ASC
+        ");
+        
+        if ($query) {
+            $query->bind_param("i", $dept_id);
+            if ($query->execute()) {
+                $result = $query->get_result();
+                return $result;
+            }
         }
+
+        return false; 
     }
 
-    return false; 
-}
 
+
+
+
+
+
+
+    public function view_all_student_grade()
+    {
+        $query = $this->conn->prepare("
+            SELECT s.stud_id, ss.ss_id,ss.ss_final_grade, ss.ss_subject_id, s.stud_id, s.stud_fname, s.stud_lname,sub.course_code
+            FROM `student_subject` AS ss
+            LEFT JOIN `student` AS s ON s.stud_id = ss.ss_stud_id
+            LEFT JOIN `subject` AS sub ON sub.subject_id = ss.ss_subject_id
+            ORDER BY s.stud_lname ASC
+
+        ");
+        
+        if ($query) {
+            // no bind_param needed since no placeholders
+            if ($query->execute()) {
+                $result = $query->get_result();
+                return $result;
+            }
+        }
+    
+        return false; 
+    }
+    
 
 
 

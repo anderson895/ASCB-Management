@@ -102,7 +102,13 @@ if($isLogin==false){
           </li>
 
 
-       
+
+          <li>
+              <a href="studGrade.php"><span class="fa fa-clipboard"></span> Student Grade</a>
+          </li>
+
+
+                
          
           
           
